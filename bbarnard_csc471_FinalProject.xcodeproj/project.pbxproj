@@ -23,6 +23,9 @@
 		840C2DF4164227DB00E4D056 /* bbarnard_NotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C2DF3164227DB00E4D056 /* bbarnard_NotesTableViewController.m */; };
 		840C2DF81642282000E4D056 /* bbarnard_NoteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C2DF61642282000E4D056 /* bbarnard_NoteDetailViewController.m */; };
 		840C2DF91642282000E4D056 /* bbarnard_NoteDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840C2DF71642282000E4D056 /* bbarnard_NoteDetailViewController.xib */; };
+		840C2DFE164229FD00E4D056 /* bbarnard_UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C2DFD164229FD00E4D056 /* bbarnard_UserData.m */; };
+		840C2E0116422A0D00E4D056 /* bbarnard_NoteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C2E0016422A0D00E4D056 /* bbarnard_NoteData.m */; };
+		840C2E0416422A2400E4D056 /* bbarnard_NoteCollecton.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C2E0316422A2400E4D056 /* bbarnard_NoteCollecton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +52,12 @@
 		840C2DF51642282000E4D056 /* bbarnard_NoteDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_NoteDetailViewController.h; sourceTree = "<group>"; };
 		840C2DF61642282000E4D056 /* bbarnard_NoteDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_NoteDetailViewController.m; sourceTree = "<group>"; };
 		840C2DF71642282000E4D056 /* bbarnard_NoteDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bbarnard_NoteDetailViewController.xib; sourceTree = "<group>"; };
+		840C2DFC164229FD00E4D056 /* bbarnard_UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_UserData.h; sourceTree = "<group>"; };
+		840C2DFD164229FD00E4D056 /* bbarnard_UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_UserData.m; sourceTree = "<group>"; };
+		840C2DFF16422A0D00E4D056 /* bbarnard_NoteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_NoteData.h; sourceTree = "<group>"; };
+		840C2E0016422A0D00E4D056 /* bbarnard_NoteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_NoteData.m; sourceTree = "<group>"; };
+		840C2E0216422A2400E4D056 /* bbarnard_NoteCollecton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_NoteCollecton.h; sourceTree = "<group>"; };
+		840C2E0316422A2400E4D056 /* bbarnard_NoteCollecton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_NoteCollecton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,18 +106,12 @@
 		840C2DD3164224F600E4D056 /* bbarnard_csc471_FinalProject */ = {
 			isa = PBXGroup;
 			children = (
+				840C2DFB1642298E00E4D056 /* Model */,
+				840C2DFA1642297B00E4D056 /* UI */,
 				840C2DDC164224F600E4D056 /* bbarnardAppDelegate.h */,
 				840C2DDD164224F600E4D056 /* bbarnardAppDelegate.m */,
 				840C2DE5164224F600E4D056 /* bbarnard_csc471_FinalProject.xcdatamodeld */,
 				840C2DD4164224F600E4D056 /* Supporting Files */,
-				840C2DED1642273900E4D056 /* bbarnard_LoginPageViewController.h */,
-				840C2DEE1642273900E4D056 /* bbarnard_LoginPageViewController.m */,
-				840C2DEF1642273900E4D056 /* bbarnard_LoginPageViewController.xib */,
-				840C2DF2164227DB00E4D056 /* bbarnard_NotesTableViewController.h */,
-				840C2DF3164227DB00E4D056 /* bbarnard_NotesTableViewController.m */,
-				840C2DF51642282000E4D056 /* bbarnard_NoteDetailViewController.h */,
-				840C2DF61642282000E4D056 /* bbarnard_NoteDetailViewController.m */,
-				840C2DF71642282000E4D056 /* bbarnard_NoteDetailViewController.xib */,
 			);
 			path = bbarnard_csc471_FinalProject;
 			sourceTree = "<group>";
@@ -125,6 +128,34 @@
 				840C2DE3164224F600E4D056 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		840C2DFA1642297B00E4D056 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				840C2DED1642273900E4D056 /* bbarnard_LoginPageViewController.h */,
+				840C2DEE1642273900E4D056 /* bbarnard_LoginPageViewController.m */,
+				840C2DEF1642273900E4D056 /* bbarnard_LoginPageViewController.xib */,
+				840C2DF2164227DB00E4D056 /* bbarnard_NotesTableViewController.h */,
+				840C2DF3164227DB00E4D056 /* bbarnard_NotesTableViewController.m */,
+				840C2DF51642282000E4D056 /* bbarnard_NoteDetailViewController.h */,
+				840C2DF61642282000E4D056 /* bbarnard_NoteDetailViewController.m */,
+				840C2DF71642282000E4D056 /* bbarnard_NoteDetailViewController.xib */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		840C2DFB1642298E00E4D056 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				840C2DFC164229FD00E4D056 /* bbarnard_UserData.h */,
+				840C2DFD164229FD00E4D056 /* bbarnard_UserData.m */,
+				840C2DFF16422A0D00E4D056 /* bbarnard_NoteData.h */,
+				840C2E0016422A0D00E4D056 /* bbarnard_NoteData.m */,
+				840C2E0216422A2400E4D056 /* bbarnard_NoteCollecton.h */,
+				840C2E0316422A2400E4D056 /* bbarnard_NoteCollecton.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,6 +232,9 @@
 				840C2DF01642273900E4D056 /* bbarnard_LoginPageViewController.m in Sources */,
 				840C2DF4164227DB00E4D056 /* bbarnard_NotesTableViewController.m in Sources */,
 				840C2DF81642282000E4D056 /* bbarnard_NoteDetailViewController.m in Sources */,
+				840C2DFE164229FD00E4D056 /* bbarnard_UserData.m in Sources */,
+				840C2E0116422A0D00E4D056 /* bbarnard_NoteData.m in Sources */,
+				840C2E0416422A2400E4D056 /* bbarnard_NoteCollecton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
