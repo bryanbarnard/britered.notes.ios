@@ -32,6 +32,8 @@
 		84629AF21645A3EB00B626D5 /* 179-notepad.png in Resources */ = {isa = PBXBuildFile; fileRef = 84629AF11645A3EB00B626D5 /* 179-notepad.png */; };
 		84629AF41645A41500B626D5 /* 157-wrench.png in Resources */ = {isa = PBXBuildFile; fileRef = 84629AF31645A41500B626D5 /* 157-wrench.png */; };
 		84629AF61645A42F00B626D5 /* 02-redo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84629AF51645A42F00B626D5 /* 02-redo.png */; };
+		84629AFA1645F1A700B626D5 /* bbarnard_AboutPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84629AF81645F1A700B626D5 /* bbarnard_AboutPageViewController.m */; };
+		84629AFB1645F1A700B626D5 /* bbarnard_AboutPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84629AF91645F1A700B626D5 /* bbarnard_AboutPageViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,9 @@
 		84629AF11645A3EB00B626D5 /* 179-notepad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "179-notepad.png"; sourceTree = "<group>"; };
 		84629AF31645A41500B626D5 /* 157-wrench.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "157-wrench.png"; sourceTree = "<group>"; };
 		84629AF51645A42F00B626D5 /* 02-redo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "02-redo.png"; sourceTree = "<group>"; };
+		84629AF71645F1A700B626D5 /* bbarnard_AboutPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_AboutPageViewController.h; sourceTree = "<group>"; };
+		84629AF81645F1A700B626D5 /* bbarnard_AboutPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_AboutPageViewController.m; sourceTree = "<group>"; };
+		84629AF91645F1A700B626D5 /* bbarnard_AboutPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bbarnard_AboutPageViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +158,8 @@
 				840C2DF3164227DB00E4D056 /* bbarnard_NotesTableViewController.m */,
 				840C2DF51642282000E4D056 /* bbarnard_NoteDetailViewController.h */,
 				840C2DF61642282000E4D056 /* bbarnard_NoteDetailViewController.m */,
+				84629AF71645F1A700B626D5 /* bbarnard_AboutPageViewController.h */,
+				84629AF81645F1A700B626D5 /* bbarnard_AboutPageViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -173,6 +180,7 @@
 		84629AE416459DA700B626D5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84629AF91645F1A700B626D5 /* bbarnard_AboutPageViewController.xib */,
 				840C2DEF1642273900E4D056 /* bbarnard_LoginPageViewController.xib */,
 				840C2DF71642282000E4D056 /* bbarnard_NoteDetailViewController.xib */,
 				84629AEA1645A02F00B626D5 /* bbarnard_TabBarController.xib */,
@@ -256,6 +264,7 @@
 				84629AF21645A3EB00B626D5 /* 179-notepad.png in Resources */,
 				84629AF41645A41500B626D5 /* 157-wrench.png in Resources */,
 				84629AF61645A42F00B626D5 /* 02-redo.png in Resources */,
+				84629AFB1645F1A700B626D5 /* bbarnard_AboutPageViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +284,7 @@
 				840C2DFE164229FD00E4D056 /* bbarnard_UserData.m in Sources */,
 				840C2E0116422A0D00E4D056 /* bbarnard_NoteData.m in Sources */,
 				840C2E0416422A2400E4D056 /* bbarnard_NoteCollecton.m in Sources */,
+				84629AFA1645F1A700B626D5 /* bbarnard_AboutPageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
