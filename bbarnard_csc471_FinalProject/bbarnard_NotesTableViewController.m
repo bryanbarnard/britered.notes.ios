@@ -2,7 +2,7 @@
 //  bbarnard_NotesTableViewController.m
 //  bbarnard_csc471_FinalProject
 //
-//  Created by Bryan Barnard on 10/31/12.
+//  Created by Bryan Barnard on 11/4/12.
 //  Copyright (c) 2012 Bryan Barnard. All rights reserved.
 //
 
@@ -13,6 +13,8 @@
 @end
 
 @implementation bbarnard_NotesTableViewController
+@synthesize notesArray;
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -32,7 +34,16 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.notesArray = [NSArray arrayWithObjects: @"My First Note", @"My Second Note", @"My Third Note", @"My Fourth Note", nil];
+    NSLog(@"test");
 }
+
+- (void)viewDidUnload
+{
+    self.notesArray = nil;
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -44,25 +55,29 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return self.notesArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     
     // Configure the cell...
-    
+    NSUInteger row = [indexPath row];
+    cell.textLabel.text = [self.notesArray objectAtIndex:row];    
     return cell;
 }
 

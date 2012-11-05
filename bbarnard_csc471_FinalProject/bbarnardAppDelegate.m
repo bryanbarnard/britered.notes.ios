@@ -7,6 +7,7 @@
 //
 
 #import "bbarnardAppDelegate.h"
+#import "bbarnard_NotesNavViewController.h"
 
 @implementation bbarnardAppDelegate
 
@@ -15,6 +16,10 @@
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+
+
+#pragma mark -
+#pragma mark Application Lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
