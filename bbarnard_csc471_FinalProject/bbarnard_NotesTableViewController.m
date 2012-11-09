@@ -7,6 +7,7 @@
 //
 
 #import "bbarnard_NotesTableViewController.h"
+#import "bbarnard_NoteDetailViewController.h"
 
 @interface bbarnard_NotesTableViewController ()
 
@@ -124,13 +125,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
+    
+    /* get selected row */
+    NSUInteger row = [indexPath row];
+    
+    /* get value at row and create object */
+    NSString *rowValue = [notesArray objectAtIndex:row];
+    
+    bbarnard_NoteDetailViewController  *detailViewController =[[bbarnard_NoteDetailViewController alloc] initWithNibName:@"bbarnard_NoteDetailViewController" bundle:nil];
+    detailViewController.noteContent = rowValue;
+    
+    
      // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 @end

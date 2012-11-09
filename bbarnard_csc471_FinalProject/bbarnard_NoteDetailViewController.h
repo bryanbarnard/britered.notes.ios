@@ -10,4 +10,8 @@
 
 @interface bbarnard_NoteDetailViewController : UIViewController
 
+@property (weak, nonatomic) NSString *noteContent;
+@property (weak, nonatomic) IBOutlet UITextField *titleLabelOutlet;
+
+
 @end
