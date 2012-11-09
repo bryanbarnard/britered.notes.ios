@@ -37,16 +37,9 @@
     return self;
 }
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
-    titleLabelOutlet.text = self.noteData.title;
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,4 +51,11 @@
     [self setTitleLabelOutlet:nil];
     [super viewDidUnload];
 }
+
+-(void)viewWillAppear:(BOOL)animated {
+
+    [self setTitle: self.noteData.title];
+    self.titleLabelOutlet.text = self.noteData.title;
+}
+
 @end

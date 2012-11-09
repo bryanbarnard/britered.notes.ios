@@ -40,6 +40,8 @@
 		84629AFB1645F1A700B626D5 /* bbarnard_AboutPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84629AF91645F1A700B626D5 /* bbarnard_AboutPageViewController.xib */; };
 		84629AFF1645F47300B626D5 /* bbarnard_SyncPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84629AFD1645F47200B626D5 /* bbarnard_SyncPageViewController.m */; };
 		84629B001645F47300B626D5 /* bbarnard_SyncPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84629AFE1645F47200B626D5 /* bbarnard_SyncPageViewController.xib */; };
+		84D55566164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D55564164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.m */; };
+		84D55567164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D55565164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +92,9 @@
 		84629AFC1645F47200B626D5 /* bbarnard_SyncPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_SyncPageViewController.h; sourceTree = "<group>"; };
 		84629AFD1645F47200B626D5 /* bbarnard_SyncPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_SyncPageViewController.m; sourceTree = "<group>"; };
 		84629AFE1645F47200B626D5 /* bbarnard_SyncPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bbarnard_SyncPageViewController.xib; sourceTree = "<group>"; };
+		84D55563164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_NewNoteViewController.h; sourceTree = "<group>"; };
+		84D55564164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_NewNoteViewController.m; sourceTree = "<group>"; };
+		84D55565164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bbarnard_NewNoteViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +172,8 @@
 		840C2DFA1642297B00E4D056 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				84D55563164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.h */,
+				84D55564164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.m */,
 				840C2DED1642273900E4D056 /* bbarnard_LoginPageViewController.h */,
 				840C2DEE1642273900E4D056 /* bbarnard_LoginPageViewController.m */,
 				840C2DF51642282000E4D056 /* bbarnard_NoteDetailViewController.h */,
@@ -208,6 +215,7 @@
 				840C2DEF1642273900E4D056 /* bbarnard_LoginPageViewController.xib */,
 				840C2DF71642282000E4D056 /* bbarnard_NoteDetailViewController.xib */,
 				84629AEA1645A02F00B626D5 /* bbarnard_TabBarController.xib */,
+				84D55565164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -292,6 +300,7 @@
 				84629B001645F47300B626D5 /* bbarnard_SyncPageViewController.xib in Resources */,
 				842D65A91645F7FB0089B6FD /* bbarnard_SettingsPageViewController.xib in Resources */,
 				842D65BD164751A00089B6FD /* bbarnard_NotesTableViewController.xib in Resources */,
+				84D55567164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +324,7 @@
 				842D65A81645F7FB0089B6FD /* bbarnard_SettingsPageViewController.m in Sources */,
 				842D65AE16474A220089B6FD /* bbarnard_NotesNavViewController.m in Sources */,
 				842D65BC164751A00089B6FD /* bbarnard_NotesTableViewController.m in Sources */,
+				84D55566164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

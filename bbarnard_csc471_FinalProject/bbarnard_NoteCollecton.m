@@ -10,4 +10,7 @@
 
 @implementation bbarnard_NoteCollecton
 
+@synthesize notes;
+@synthesize lastUpdated;
+
 @end

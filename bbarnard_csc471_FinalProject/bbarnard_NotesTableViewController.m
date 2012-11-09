@@ -37,8 +37,9 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    /* this will only be instantiated once */
     self.notesArray = [NSArray arrayWithObjects: @"My First Note", @"My Second Note", @"My Third Note", @"My Fourth Note", nil];
-    NSLog(@"test");
+    self.detailController = [[bbarnard_NoteDetailViewController alloc] initWithNibName:@"bbarnard_NoteDetailViewController" bundle:nil];        
 }
 
 - (void)viewDidUnload
@@ -136,11 +137,10 @@
     bbarnard_NoteData *noteData = [[bbarnard_NoteData alloc] init];
     noteData.title = rowValue;
 
-    bbarnard_NoteDetailViewController *detailViewController = [[bbarnard_NoteDetailViewController alloc] initWithNibName:@"bbarnard_NoteDetailViewController" bundle:nil AndNoteObject:noteData];
+    [self.detailController setTitle: noteData.title];
+    self.detailController.noteData = noteData;
     
-     // Pass the selected object to the new view controller.
-    [detailViewController setTitle: noteData.title];
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    [self.navigationController pushViewController:self.detailController animated:YES];
 }
 
 @end

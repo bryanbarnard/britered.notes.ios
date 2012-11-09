@@ -10,4 +10,10 @@
 
 @interface bbarnard_UserData : NSObject
 
+@property (weak, nonatomic) NSString  *userName;
+@property (weak, nonatomic) NSString  *firstName;
+@property (weak, nonatomic) NSString  *lastName;
+@property (weak, nonatomic) NSString  *userId;
+@property (weak, nonatomic) NSString  *password;
+
 @end

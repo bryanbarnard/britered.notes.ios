@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "bbarnard_NoteData.h"
 
 @interface bbarnard_NoteCollecton : NSObject
+
+@property (weak, nonatomic) NSMutableArray *notes;
+@property (weak, nonatomic) NSString *lastUpdated;
 
 @end
