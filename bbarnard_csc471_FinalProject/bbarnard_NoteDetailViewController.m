@@ -7,6 +7,7 @@
 //
 
 #import "bbarnard_NoteDetailViewController.h"
+#import "bbarnard_NoteData.h"
 
 @interface bbarnard_NoteDetailViewController ()
 
@@ -14,8 +15,8 @@
 
 @implementation bbarnard_NoteDetailViewController
 
-@synthesize noteContent;
 @synthesize titleLabelOutlet;
+@synthesize noteData;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,12 +27,24 @@
     return self;
 }
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil AndNoteObject:(bbarnard_NoteData *)noteDataObject
+{
+    
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.noteData = noteDataObject;
+    }
+    return self;
+}
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     
-    titleLabelOutlet.text = self.noteContent;
+    titleLabelOutlet.text = self.noteData.title;
     
     
 }

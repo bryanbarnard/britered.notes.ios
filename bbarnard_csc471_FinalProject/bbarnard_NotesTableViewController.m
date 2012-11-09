@@ -8,6 +8,7 @@
 
 #import "bbarnard_NotesTableViewController.h"
 #import "bbarnard_NoteDetailViewController.h"
+#import "bbarnard_NoteData.h"
 
 @interface bbarnard_NotesTableViewController ()
 
@@ -132,11 +133,13 @@
     /* get value at row and create object */
     NSString *rowValue = [notesArray objectAtIndex:row];
     
-    bbarnard_NoteDetailViewController  *detailViewController =[[bbarnard_NoteDetailViewController alloc] initWithNibName:@"bbarnard_NoteDetailViewController" bundle:nil];
-    detailViewController.noteContent = rowValue;
-    
+    bbarnard_NoteData *noteData = [[bbarnard_NoteData alloc] init];
+    noteData.title = rowValue;
+
+    bbarnard_NoteDetailViewController *detailViewController = [[bbarnard_NoteDetailViewController alloc] initWithNibName:@"bbarnard_NoteDetailViewController" bundle:nil AndNoteObject:noteData];
     
      // Pass the selected object to the new view controller.
+    [detailViewController setTitle: noteData.title];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 

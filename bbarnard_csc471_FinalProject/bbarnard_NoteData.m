@@ -10,4 +10,20 @@
 
 @implementation bbarnard_NoteData
 
+
+/* properties */
+@synthesize content;
+@synthesize title;
+@synthesize created_on;
+@synthesize updated_on;
+@synthesize authorId;
+
+/* constructor */
+
+
+
+
+
+
+/* methods */
 @end

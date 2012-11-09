@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "bbarnard_NoteData.h"
 
 @interface bbarnard_NoteDetailViewController : UIViewController
 
-@property (weak, nonatomic) NSString *noteContent;
 @property (weak, nonatomic) IBOutlet UITextField *titleLabelOutlet;
+@property (weak, nonatomic) bbarnard_NoteData *noteData;
 
+-(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil AndNoteObject:(bbarnard_NoteData *)noteDataObject;
 
 @end
