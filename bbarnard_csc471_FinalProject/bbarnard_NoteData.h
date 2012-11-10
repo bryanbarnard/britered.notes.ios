@@ -14,6 +14,7 @@
     NSString *created_on;
     NSString *updated_on;
     NSString *author;
+    NSString *altId;
     NSInteger noteId;
     BOOL    isDirty;
 }
@@ -24,5 +25,6 @@
 @property (nonatomic, copy) NSString *updated_on;
 @property (nonatomic, copy) NSString *author;
 @property (nonatomic, assign) NSInteger noteId;
+@property (nonatomic, copy) NSString *altId;
 @property (nonatomic, readwrite) BOOL isDirty;
 @end

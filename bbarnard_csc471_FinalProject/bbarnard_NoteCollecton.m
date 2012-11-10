@@ -103,14 +103,60 @@ static sqlite3 *db = nil;
  * true success, false fail
  */
 +(BOOL) createNote:(bbarnard_NoteData *)noteObject {
+    NSAssert(noteObject != nil, @"Invalid Argument Passed to createNote, noteObject Nil.");
+    bbarnard_NoteData *note = noteObject;
     
+    NSTimeInterval nowEpoch = [[NSDate date] timeIntervalSince1970];
+    NSString *nowEpochString = [NSString stringWithFormat:@"%f", nowEpoch];
+    BOOL insertSuccess;
+
+    /* set any note object values that are not yet set*/
+    [note setCreated_on: nowEpochString];
+    [note setUpdated_on: nowEpochString];
+    [note setAuthor: @"1"];
+    [note setAltId: @"1"];
+
     if(![bbarnard_NoteCollecton checkDbExists]) {
         return NO;
     }
-
+    
+    sqlite3_stmt *stmt=nil;
+    const char *sql = "INSERT INTO NOTES(created_on, updated_on, content, title, altId, author) VALUES(?,?,?,?,?,?)";
     
     @try {
+
+        //prepare and catch error
+        if(sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+            NSAssert1(0, @"Error while creating insert statement. '%s'", sqlite3_errmsg(db));
+        }
         
+        /* set sql statement variables */
+        sqlite3_bind_text(stmt, 1, [[note created_on] UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(stmt, 2, [[note updated_on] UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(stmt, 3, [[note content] UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(stmt, 4, [[note title] UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(stmt, 5, [[note altId] UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(stmt, 6, [[note author] UTF8String], -1, SQLITE_TRANSIENT);
+        
+        //debug
+        NSLog(@"%@", stmt);
+        
+        if(SQLITE_DONE != sqlite3_step(stmt)) {
+            NSAssert1(0, @"Error while inserting data. '%s'", sqlite3_errmsg(db));
+            insertSuccess = NO;
+        } else {
+            //SQLite provides a method to get the last primary key inserted by using sqlite3_last_insert_rowid
+            [note setNoteId: sqlite3_last_insert_rowid(db)];
+            insertSuccess = YES;
+        }
+        
+        /* finalize */
+        sqlite3_finalize(stmt);
+        
+        //Reset the statement.
+        sqlite3_reset(stmt);
+        
+        //TODO: update object in array
     }
     @catch (NSException *exception) {
         NSLog(@"An exception occured: %@", [exception reason]);
@@ -118,7 +164,8 @@ static sqlite3 *db = nil;
         [alert show];
     }
     @finally {
-        return NO;
+        sqlite3_close(db);
+        return insertSuccess;
     }
 }
 

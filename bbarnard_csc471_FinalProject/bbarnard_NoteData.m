@@ -19,4 +19,5 @@
 @synthesize author;
 @synthesize noteId;
 @synthesize isDirty;
+@synthesize altId;
 @end
