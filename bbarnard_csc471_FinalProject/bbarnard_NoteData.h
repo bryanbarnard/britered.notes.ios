@@ -8,11 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
-@interface bbarnard_NoteData : NSObject
-@property (weak, nonatomic) NSString *content;
-@property (weak, nonatomic) NSString *title;
-@property (weak, nonatomic) NSString *created_on;
-@property (weak, nonatomic) NSString *updated_on;
-@property (weak, nonatomic) NSString *authorId;
+@interface bbarnard_NoteData : NSObject {
+    NSString *content;
+    NSString *title;
+    NSString *created_on;
+    NSString *updated_on;
+    NSString *author;
+    NSInteger noteId;
+}
+
+@property (retain, nonatomic) NSString *content;
+@property (retain, nonatomic) NSString *title;
+@property (retain, nonatomic) NSString *created_on;
+@property (retain, nonatomic) NSString *updated_on;
+@property (retain, nonatomic) NSString *author;
+@property (nonatomic, assign) NSInteger noteId;
 
 @end

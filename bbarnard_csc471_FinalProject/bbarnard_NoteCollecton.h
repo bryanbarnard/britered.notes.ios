@@ -7,11 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "bbarnard_NoteData.h"
+#import <sqlite3.h>
 
-@interface bbarnard_NoteCollecton : NSObject
+@interface bbarnard_NoteCollecton : NSObject {
+    sqlite3 *db;
+}
 
-@property (weak, nonatomic) NSMutableArray *notes;
-@property (weak, nonatomic) NSString *lastUpdated;
+-(NSMutableArray *)getNotes;
+
+
+
 
 @end

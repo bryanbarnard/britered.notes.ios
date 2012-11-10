@@ -40,6 +40,8 @@
 		84629AFB1645F1A700B626D5 /* bbarnard_AboutPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84629AF91645F1A700B626D5 /* bbarnard_AboutPageViewController.xib */; };
 		84629AFF1645F47300B626D5 /* bbarnard_SyncPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84629AFD1645F47200B626D5 /* bbarnard_SyncPageViewController.m */; };
 		84629B001645F47300B626D5 /* bbarnard_SyncPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84629AFE1645F47200B626D5 /* bbarnard_SyncPageViewController.xib */; };
+		847C1BE5164E16B60023A249 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 847C1BE4164E16B60023A249 /* libsqlite3.dylib */; };
+		847C1BE9164E19510023A249 /* bbarnard_notesdb.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 847C1BE8164E19510023A249 /* bbarnard_notesdb.sqlite */; };
 		84D55566164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D55564164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.m */; };
 		84D55567164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D55565164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.xib */; };
 /* End PBXBuildFile section */
@@ -92,6 +94,8 @@
 		84629AFC1645F47200B626D5 /* bbarnard_SyncPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_SyncPageViewController.h; sourceTree = "<group>"; };
 		84629AFD1645F47200B626D5 /* bbarnard_SyncPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_SyncPageViewController.m; sourceTree = "<group>"; };
 		84629AFE1645F47200B626D5 /* bbarnard_SyncPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bbarnard_SyncPageViewController.xib; sourceTree = "<group>"; };
+		847C1BE4164E16B60023A249 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		847C1BE8164E19510023A249 /* bbarnard_notesdb.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = bbarnard_notesdb.sqlite; sourceTree = "<group>"; };
 		84D55563164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_NewNoteViewController.h; sourceTree = "<group>"; };
 		84D55564164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_NewNoteViewController.m; sourceTree = "<group>"; };
 		84D55565164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bbarnard_NewNoteViewController.xib; sourceTree = "<group>"; };
@@ -106,6 +110,7 @@
 				840C2DCE164224F600E4D056 /* Foundation.framework in Frameworks */,
 				840C2DD0164224F600E4D056 /* CoreGraphics.framework in Frameworks */,
 				840C2DD2164224F600E4D056 /* CoreData.framework in Frameworks */,
+				847C1BE5164E16B60023A249 /* libsqlite3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +137,7 @@
 		840C2DCA164224F600E4D056 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				847C1BE4164E16B60023A249 /* libsqlite3.dylib */,
 				840C2DCB164224F600E4D056 /* UIKit.framework */,
 				840C2DCD164224F600E4D056 /* Foundation.framework */,
 				840C2DCF164224F600E4D056 /* CoreGraphics.framework */,
@@ -143,6 +149,7 @@
 		840C2DD3164224F600E4D056 /* bbarnard_csc471_FinalProject */ = {
 			isa = PBXGroup;
 			children = (
+				847C1BE7164E193A0023A249 /* Data */,
 				84629AE416459DA700B626D5 /* View */,
 				840C2DFB1642298E00E4D056 /* Model */,
 				840C2DFA1642297B00E4D056 /* Controller */,
@@ -232,6 +239,14 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		847C1BE7164E193A0023A249 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				847C1BE8164E19510023A249 /* bbarnard_notesdb.sqlite */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -301,6 +316,7 @@
 				842D65A91645F7FB0089B6FD /* bbarnard_SettingsPageViewController.xib in Resources */,
 				842D65BD164751A00089B6FD /* bbarnard_NotesTableViewController.xib in Resources */,
 				84D55567164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.xib in Resources */,
+				847C1BE9164E19510023A249 /* bbarnard_notesdb.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

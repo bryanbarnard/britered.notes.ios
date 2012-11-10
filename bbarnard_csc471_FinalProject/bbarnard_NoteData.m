@@ -16,14 +16,6 @@
 @synthesize title;
 @synthesize created_on;
 @synthesize updated_on;
-@synthesize authorId;
-
-/* constructor */
-
-
-
-
-
-
-/* methods */
+@synthesize author;
+@synthesize noteId;
 @end
