@@ -8,14 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
+#import "bbarnard_NoteData.h"
 
-@interface bbarnard_NoteCollecton : NSObject {
-    sqlite3 *db;
-}
+@interface bbarnard_NoteCollecton : NSObject
 
 -(NSMutableArray *)getNotes;
-
-
-
-
+-(BOOL)createNote:(bbarnard_NoteData *)noteDataObject;
+-(BOOL)updateNote:(bbarnard_NoteData *)noteDataObject;
+-(BOOL)deleteNote:(bbarnard_NoteData *)noteDataObject;
 @end

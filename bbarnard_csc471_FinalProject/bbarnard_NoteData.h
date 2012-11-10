@@ -15,13 +15,14 @@
     NSString *updated_on;
     NSString *author;
     NSInteger noteId;
+    BOOL    isDirty;
 }
 
-@property (retain, nonatomic) NSString *content;
-@property (retain, nonatomic) NSString *title;
-@property (retain, nonatomic) NSString *created_on;
-@property (retain, nonatomic) NSString *updated_on;
-@property (retain, nonatomic) NSString *author;
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *created_on;
+@property (nonatomic, copy) NSString *updated_on;
+@property (nonatomic, copy) NSString *author;
 @property (nonatomic, assign) NSInteger noteId;
-
+@property (nonatomic, readwrite) BOOL isDirty;
 @end

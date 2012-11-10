@@ -30,7 +30,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -38,9 +37,17 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     /* this will only be instantiated once */
-    self.notesArray = [NSArray arrayWithObjects: @"My First Note", @"My Second Note", @"My Third Note", @"My Fourth Note", nil];
-    self.detailController = [[bbarnard_NoteDetailViewController alloc] initWithNibName:@"bbarnard_NoteDetailViewController" bundle:nil];        
+    //self.notesArray = [NSArray arrayWithObjects: @"My First Note", @"My Second Note", @"My Third Note", @"My Fourth Note", nil];
+    
+    
+    self.detailController = [[bbarnard_NoteDetailViewController alloc] initWithNibName:@"bbarnard_NoteDetailViewController" bundle:nil];
+    bbarnard_NoteCollecton *noteCollection = [[bbarnard_NoteCollecton alloc] init];
+    self.notesArray = [noteCollection getNotes];
+    
+    
 }
+
+
 
 - (void)viewDidUnload
 {
@@ -65,7 +72,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    
+    NSLog(@"Count %d", self.notesArray.count);
     return self.notesArray.count;
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -80,7 +90,9 @@
     
     // Configure the cell...
     NSUInteger row = [indexPath row];
-    cell.textLabel.text = [self.notesArray objectAtIndex:row];    
+    bbarnard_NoteData *note = [notesArray objectAtIndex:row];
+    
+    cell.textLabel.text = note.title;
     return cell;
 }
 
@@ -132,13 +144,13 @@
     NSUInteger row = [indexPath row];
     
     /* get value at row and create object */
-    NSString *rowValue = [notesArray objectAtIndex:row];
+    bbarnard_NoteData *note = [notesArray objectAtIndex:row];
     
-    bbarnard_NoteData *noteData = [[bbarnard_NoteData alloc] init];
-    noteData.title = rowValue;
+    //bbarnard_NoteData *noteData = [[bbarnard_NoteData alloc] init];
+    //noteData.title = rowValue;
 
-    [self.detailController setTitle: noteData.title];
-    self.detailController.noteData = noteData;
+    [self.detailController setTitle: note.title];
+    self.detailController.noteData = note;
     
     [self.navigationController pushViewController:self.detailController animated:YES];
 }

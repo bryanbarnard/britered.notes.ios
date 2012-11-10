@@ -18,4 +18,5 @@
 @synthesize updated_on;
 @synthesize author;
 @synthesize noteId;
+@synthesize isDirty;
 @end

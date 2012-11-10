@@ -15,8 +15,10 @@
 
 @implementation bbarnard_NoteDetailViewController
 
-@synthesize titleLabelOutlet;
+@synthesize titleOutlet;
+@synthesize contentOutlet;
 @synthesize noteData;
+@synthesize saveBtnOutlet;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,14 +50,19 @@
 }
 
 - (void)viewDidUnload {
-    [self setTitleLabelOutlet:nil];
+    [self setTitleOutlet:nil];
+    [self setContentOutlet:nil];
+    [self setSaveBtnOutlet:nil];
+    [self setDeleteBtnOutlet:nil];
     [super viewDidUnload];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
 
     [self setTitle: self.noteData.title];
-    self.titleLabelOutlet.text = self.noteData.title;
+    [self.titleOutlet setText: self.noteData.title];
+    [self.contentOutlet setText: self.noteData.content];
+    [self.saveBtnOutlet setEnabled:NO];
 }
 
 @end

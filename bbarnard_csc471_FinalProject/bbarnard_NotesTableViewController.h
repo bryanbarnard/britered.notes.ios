@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "bbarnard_NoteDetailViewController.h"
+#import "bbarnard_NoteCollecton.h"
 
 @interface bbarnard_NotesTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, retain) NSArray *notesArray;
+@property (nonatomic, retain) NSMutableArray *notesArray;
 @property (nonatomic, retain) bbarnard_NoteDetailViewController *detailController;
 
 @end
