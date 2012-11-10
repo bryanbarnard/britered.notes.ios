@@ -41,10 +41,7 @@
     
     
     self.detailController = [[bbarnard_NoteDetailViewController alloc] initWithNibName:@"bbarnard_NoteDetailViewController" bundle:nil];
-    bbarnard_NoteCollecton *noteCollection = [[bbarnard_NoteCollecton alloc] init];
-    self.notesArray = [noteCollection getNotes];
-    
-    
+    self.notesArray = [bbarnard_NoteCollecton getNotes];
 }
 
 

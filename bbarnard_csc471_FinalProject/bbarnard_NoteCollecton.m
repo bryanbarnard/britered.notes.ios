@@ -19,7 +19,7 @@ static sqlite3 *db = nil;
 /**
  * get notes from SQLLITE DB
  */
--(NSMutableArray *) getNotes {
++(NSMutableArray *) getNotes {
 
     //get notes from database
     NSMutableArray *noteArray = [[NSMutableArray alloc] init];
@@ -74,7 +74,7 @@ static sqlite3 *db = nil;
 }
 
 
--(BOOL)checkDbExists {
++(BOOL)checkDbExists {
     NSFileManager *fileMgr = [NSFileManager defaultManager];
     NSString *dbPath = [[[NSBundle mainBundle] resourcePath ]stringByAppendingPathComponent:@"bbarnard_notesdb.sqlite"];
     BOOL success = [fileMgr fileExistsAtPath:dbPath];
@@ -102,9 +102,9 @@ static sqlite3 *db = nil;
  * return Bool indicating success or fail
  * true success, false fail
  */
--(BOOL) createNote:(bbarnard_NoteData *)noteObject {
++(BOOL) createNote:(bbarnard_NoteData *)noteObject {
     
-    if(![self checkDbExists]) {
+    if(![bbarnard_NoteCollecton checkDbExists]) {
         return NO;
     }
 
@@ -127,13 +127,12 @@ static sqlite3 *db = nil;
  * return Bool indicating success or fail
  * true success, false fail
  */
--(BOOL) updateNote:(bbarnard_NoteData *)noteObject {
++(BOOL) updateNote:(bbarnard_NoteData *)noteObject {
     
-    if(![self checkDbExists]) {
+    if(![bbarnard_NoteCollecton checkDbExists]) {
         return NO;
     }
-    
-    
+        
     @try {
         
     }
@@ -153,12 +152,11 @@ static sqlite3 *db = nil;
  * return Bool indicating success or fail
  * true success, false fail
  */
--(BOOL) deleteNote:(bbarnard_NoteData *)noteObject {
++(BOOL) deleteNote:(bbarnard_NoteData *)noteObject {
 
-    if(![self checkDbExists]) {
+    if(![bbarnard_NoteCollecton checkDbExists]) {
         return NO;
     }
-
     
     @try {
         

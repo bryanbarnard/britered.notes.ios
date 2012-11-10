@@ -12,8 +12,8 @@
 
 @interface bbarnard_NoteCollecton : NSObject
 
--(NSMutableArray *)getNotes;
--(BOOL)createNote:(bbarnard_NoteData *)noteDataObject;
--(BOOL)updateNote:(bbarnard_NoteData *)noteDataObject;
--(BOOL)deleteNote:(bbarnard_NoteData *)noteDataObject;
++(NSMutableArray *)getNotes;
++(BOOL)createNote:(bbarnard_NoteData *)noteDataObject;
++(BOOL)updateNote:(bbarnard_NoteData *)noteDataObject;
++(BOOL)deleteNote:(bbarnard_NoteData *)noteDataObject;
 @end
