@@ -10,4 +10,11 @@
 
 @interface bbarnard_NewNoteViewController : UIViewController
 
+
+@property (weak, nonatomic) IBOutlet UITextField *titleOutlet;
+@property (weak, nonatomic) IBOutlet UITextView *contentOutlet;
+@property (weak, nonatomic) IBOutlet UIButton *saveBtnOutlet;
+
+- (IBAction)submitBtnClicked:(UIButton *)sender;
+
 @end

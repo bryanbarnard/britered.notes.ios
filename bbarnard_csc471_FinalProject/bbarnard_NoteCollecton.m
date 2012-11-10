@@ -148,6 +148,7 @@ static sqlite3 *db = nil;
             //SQLite provides a method to get the last primary key inserted by using sqlite3_last_insert_rowid
             [note setNoteId: sqlite3_last_insert_rowid(db)];
             insertSuccess = YES;
+            NSLog(@"New Note Successfully Created. ID: %d", note.noteId);
         }
         
         /* finalize */
