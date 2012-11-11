@@ -72,26 +72,15 @@
         return;
     }
 
-
     bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *)[[UIApplication sharedApplication] delegate];
     bbarnard_NoteData *newNote = [[bbarnard_NoteData alloc] init];
-    
+
+    /* set values from ui */
     [newNote setTitle: titleOutlet.text];
     [newNote setContent: contentOutlet.text];
+
+    /* update db and collection */
     [appDelegate addNote:newNote];
-
-    /*
-    // push to db
-    if ([bbarnard_NoteCollecton createNote:newNote]) {
-        //alert note created;
-    } else {
-        //alert error
-    }
-      */
-
-
-
-
 
     // on successful save we want to return to the tableView
     [self.navigationController dismissModalViewControllerAnimated:YES];
