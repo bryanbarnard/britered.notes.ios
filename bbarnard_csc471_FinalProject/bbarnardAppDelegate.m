@@ -84,7 +84,7 @@
     [noteArray removeObject:noteObj];
 }
 
-- (void) addCoffee:(bbarnard_NoteData *)noteObj {
+- (void) addNote:(bbarnard_NoteData *)noteObj {
 
     //Add it to the database.
     [bbarnard_NoteCollecton createNote:noteObj];

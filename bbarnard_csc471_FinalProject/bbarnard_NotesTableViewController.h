@@ -10,10 +10,14 @@
 #import "bbarnard_NoteDetailViewController.h"
 #import "bbarnard_NoteCollecton.h"
 #import "bbarnard_NewNoteViewController.h"
+#import "bbarnardAppDelegate.h"
 
-@interface bbarnard_NotesTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, retain) NSMutableArray *notesArray;
+@interface bbarnard_NotesTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate> {
+    bbarnardAppDelegate *appDelegate;
+}
+
+
 @property (nonatomic, strong) bbarnard_NoteDetailViewController *detailController;
 @property (nonatomic, strong) bbarnard_NewNoteViewController *noteController;
 @property (nonatomic, strong) UINavigationController *addNavigationController;

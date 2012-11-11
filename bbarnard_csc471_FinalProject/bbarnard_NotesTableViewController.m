@@ -6,17 +6,17 @@
 //  Copyright (c) 2012 Bryan Barnard. All rights reserved.
 //
 
+
+
 #import "bbarnard_NotesTableViewController.h"
-#import "bbarnard_NewNoteViewController.h"
-#import "bbarnard_NoteDetailViewController.h"
-#import "bbarnard_NoteData.h"
+
+@class bbarnard_NoteData, bbarnard_NewNoteViewController;
 
 @interface bbarnard_NotesTableViewController ()
 
 @end
 
 @implementation bbarnard_NotesTableViewController
-@synthesize notesArray;
 @synthesize detailController;
 @synthesize noteController;
 @synthesize addNavigationController;
@@ -36,26 +36,23 @@
     [super viewDidLoad];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleBordered target:self action:@selector(addBtnClicked)];
-
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBtnClicked:)];
     self.detailController = [[bbarnard_NoteDetailViewController alloc] initWithNibName:@"bbarnard_NoteDetailViewController" bundle:nil];
-    //self.notesArray = [bbarnard_NoteCollecton getNotes];
+
+    appDelegate = (bbarnardAppDelegate *)[[UIApplication sharedApplication] delegate];
     self.title = @"Note List";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
 }
 
 - (void)viewDidUnload
 {
-    self.notesArray = nil;
-    self.detailController = nil;
+
 }
 
 
@@ -91,8 +88,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"NotesArray Count %d", self.notesArray.count);
-    return self.notesArray.count;
+    NSLog(@"NotesArray Count %d", [appDelegate.noteArray count]);
+    return [appDelegate.noteArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -105,7 +102,7 @@
     }
 
     NSUInteger row = [indexPath row];
-    bbarnard_NoteData *note = [notesArray objectAtIndex:row];
+    bbarnard_NoteData *note = [appDelegate.noteArray objectAtIndex:row];
     
     cell.textLabel.text = note.title;
     return cell;
@@ -158,7 +155,7 @@
     NSUInteger row = [indexPath row];
     
     /* get value at row and create object */
-    bbarnard_NoteData *note = [notesArray objectAtIndex:row];
+    bbarnard_NoteData *note = [appDelegate.noteArray objectAtIndex:row];
     
     //bbarnard_NoteData *noteData = [[bbarnard_NoteData alloc] init];
     //noteData.title = rowValue;
@@ -166,6 +163,11 @@
     [self.detailController setTitle: note.title];
     self.detailController.noteData = note;
     [self.navigationController pushViewController:self.detailController animated:YES];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

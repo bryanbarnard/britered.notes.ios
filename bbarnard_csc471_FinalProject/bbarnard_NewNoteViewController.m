@@ -9,6 +9,7 @@
 #import "bbarnard_NewNoteViewController.h"
 #import "bbarnard_NoteData.h"
 #import "bbarnard_NoteCollecton.h"
+#import "bbarnardAppDelegate.h"
 
 @interface bbarnard_NewNoteViewController ()
 
@@ -71,18 +72,27 @@
         return;
     }
 
+
+    bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *)[[UIApplication sharedApplication] delegate];
     bbarnard_NoteData *newNote = [[bbarnard_NoteData alloc] init];
     
     [newNote setTitle: titleOutlet.text];
     [newNote setContent: contentOutlet.text];
-    
+    [appDelegate addNote:newNote];
+
+    /*
     // push to db
     if ([bbarnard_NoteCollecton createNote:newNote]) {
         //alert note created;
     } else {
         //alert error
     }
-    
+      */
+
+
+
+
+
     // on successful save we want to return to the tableView
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
