@@ -7,6 +7,7 @@
 //
 
 #import "bbarnard_NotesTableViewController.h"
+#import "bbarnard_NewNoteViewController.h"
 #import "bbarnard_NoteDetailViewController.h"
 #import "bbarnard_NoteData.h"
 
@@ -16,6 +17,9 @@
 
 @implementation bbarnard_NotesTableViewController
 @synthesize notesArray;
+@synthesize detailController;
+@synthesize noteController;
+@synthesize addNavigationController;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -35,15 +39,14 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    /* this will only be instantiated once */
-    //self.notesArray = [NSArray arrayWithObjects: @"My First Note", @"My Second Note", @"My Third Note", @"My Fourth Note", nil];
 
+    //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleBordered target:self action:@selector(addBtnClicked)];
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBtnClicked:)];
     self.detailController = [[bbarnard_NoteDetailViewController alloc] initWithNibName:@"bbarnard_NoteDetailViewController" bundle:nil];
     self.notesArray = [bbarnard_NoteCollecton getNotes];
+    self.title = @"Note List";
 }
-
-
 
 - (void)viewDidUnload
 {
@@ -54,8 +57,24 @@
 
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];.
+    [super didReceiveMemoryWarning];
 }
+
+//TODO
+/* add a new note modal window */
+- (IBAction)addBtnClicked:(id)sender {
+    NSLog(@"Add Note Button Clicked.");
+
+    
+    if(noteController == nil)
+        noteController = [[bbarnard_NewNoteViewController alloc] initWithNibName:@"bbarnard_NewNoteViewController" bundle:nil];
+
+    if(addNavigationController == nil)
+        addNavigationController = [[UINavigationController alloc] initWithRootViewController:noteController];
+
+    [self.navigationController presentModalViewController:addNavigationController animated:YES];
+}
+
 
 #pragma mark - Table view data source
 

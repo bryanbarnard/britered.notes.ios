@@ -41,11 +41,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     UIBarButtonItem *saveButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(saveUpdates)];
     self.navigationItem.rightBarButtonItem = saveButtonItem;
-    
-    
 }
 
 - (IBAction)saveUpdates {
