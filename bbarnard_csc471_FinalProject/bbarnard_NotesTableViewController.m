@@ -38,8 +38,7 @@
     
     /* this will only be instantiated once */
     //self.notesArray = [NSArray arrayWithObjects: @"My First Note", @"My Second Note", @"My Third Note", @"My Fourth Note", nil];
-    
-    
+
     self.detailController = [[bbarnard_NoteDetailViewController alloc] initWithNibName:@"bbarnard_NoteDetailViewController" bundle:nil];
     self.notesArray = [bbarnard_NoteCollecton getNotes];
 }
@@ -49,43 +48,37 @@
 - (void)viewDidUnload
 {
     self.notesArray = nil;
+    self.detailController = nil;
 }
 
 
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super didReceiveMemoryWarning];.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    
-    NSLog(@"Count %d", self.notesArray.count);
+    NSLog(@"NotesArray Count %d", self.notesArray.count);
     return self.notesArray.count;
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    
-    
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
-    // Configure the cell...
+
     NSUInteger row = [indexPath row];
     bbarnard_NoteData *note = [notesArray objectAtIndex:row];
     
@@ -136,7 +129,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     /* get selected row */
     NSUInteger row = [indexPath row];
     
