@@ -11,10 +11,10 @@
 
 @interface bbarnard_NoteDetailViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITextField *titleOutlet;
-@property (weak, nonatomic) IBOutlet UITextView *contentOutlet;
-@property (weak, nonatomic) bbarnard_NoteData *noteData;
+@property (strong, nonatomic) IBOutlet UITextField *titleOutlet;
+@property (strong, nonatomic) IBOutlet UITextView *contentOutlet;
+@property (strong, nonatomic) bbarnard_NoteData *noteData;
 
--(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil AndNoteObject:(bbarnard_NoteData *)noteDataObject;
+
 
 @end

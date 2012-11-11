@@ -39,7 +39,7 @@ static sqlite3 *db = nil;
             sqlite3_stmt *sqlStatement;
         
             if(sqlite3_prepare(db, sql, -1, &sqlStatement, NULL) == SQLITE_OK) {
-        
+                
                 while (sqlite3_step(sqlStatement) == SQLITE_ROW) {
                     bbarnard_NoteData *MyNote = [[bbarnard_NoteData alloc]init];
             
@@ -119,45 +119,45 @@ static sqlite3 *db = nil;
     if(![bbarnard_NoteCollecton checkDbExists]) {
         return NO;
     }
-    
-    sqlite3_stmt *stmt=nil;
-    const char *sql = "INSERT INTO NOTES(created_on, updated_on, content, title, altId, author) VALUES(?,?,?,?,?,?)";
-    
-    @try {
 
+        sqlite3_stmt *sqlStatement;
+        const char *sql = "insert into Notes(created_on, updated_on, content, title, altId, author) Values(?, ?, ?, ?, ?, ?)";
+        
+        //open
+        NSString *dbPath = [[[NSBundle mainBundle] resourcePath ]stringByAppendingPathComponent:@"bbarnard_notesdb.sqlite"];
+
+        if(SQLITE_OK == sqlite3_open([dbPath UTF8String], &db)) {
+            NSLog(@"db open ok");
+        }
+
+        NSLog(@"Preparing Statement");
         //prepare and catch error
-        if(sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+        if (sqlite3_prepare_v2(db, sql, -1, &sqlStatement, NULL) != SQLITE_OK) {
             NSAssert1(0, @"Error while creating insert statement. '%s'", sqlite3_errmsg(db));
         }
-        
+
         /* set sql statement variables */
-        sqlite3_bind_text(stmt, 1, [[note created_on] UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(stmt, 2, [[note updated_on] UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(stmt, 3, [[note content] UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(stmt, 4, [[note title] UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(stmt, 5, [[note altId] UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(stmt, 6, [[note author] UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(sqlStatement, 1, [[note created_on] UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(sqlStatement, 2, [[note updated_on] UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(sqlStatement, 3, [[note content] UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(sqlStatement, 4, [[note title] UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(sqlStatement, 5, [[note altId] UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(sqlStatement, 6, [[note author] UTF8String], -1, SQLITE_TRANSIENT);
         
-        //debug
-        NSLog(@"%@", stmt);
-        
-        if(SQLITE_DONE != sqlite3_step(stmt)) {
+        NSLog(@"Statement Prepared.");
+
+    @try {
+        if (SQLITE_DONE != sqlite3_step(sqlStatement)) {
             NSAssert1(0, @"Error while inserting data. '%s'", sqlite3_errmsg(db));
             insertSuccess = NO;
         } else {
-            //SQLite provides a method to get the last primary key inserted by using sqlite3_last_insert_rowid
             [note setNoteId: sqlite3_last_insert_rowid(db)];
             insertSuccess = YES;
             NSLog(@"New Note Successfully Created. ID: %d", note.noteId);
         }
-        
-        /* finalize */
-        sqlite3_finalize(stmt);
-        
-        //Reset the statement.
-        sqlite3_reset(stmt);
-        
-        //TODO: update object in array
+    
+
+        //TODO: update object in array        
     }
     @catch (NSException *exception) {
         NSLog(@"An exception occured: %@", [exception reason]);
@@ -165,10 +165,12 @@ static sqlite3 *db = nil;
         [alert show];
     }
     @finally {
+        sqlite3_finalize(sqlStatement);
         sqlite3_close(db);
         return insertSuccess;
     }
 }
+
 
 /**
  * update an existing note in database
@@ -193,6 +195,19 @@ static sqlite3 *db = nil;
     @finally {
         return NO;
     }
+}
+
++(NSMutableString*) sqlite3StmtToString:(sqlite3_stmt*) statement
+{
+    NSMutableString *s = [NSMutableString new];
+    [s appendString:@"{\"statement\":["];
+    for (int c = 0; c < sqlite3_column_count(statement); c++){
+        [s appendFormat:@"{\"column\":\"%@\",\"value\":\"%@\"}",[NSString stringWithUTF8String:(char*)sqlite3_column_name(statement, c)],[NSString stringWithUTF8String:(char*)sqlite3_column_text(statement, c)]];
+        if (c < sqlite3_column_count(statement) - 1)
+            [s appendString:@","];
+    }
+    [s appendString:@"]}"];
+    return s;
 }
 
 /**

@@ -52,13 +52,17 @@
 
 - (IBAction)cancelBtnClicked:(UIBarButtonItem *)sender {
     //clear all fields and dismiss keyboard
-    //dismiss keyboard
-    
+    [titleOutlet resignFirstResponder];
+    [contentOutlet resignFirstResponder];
+
+    [titleOutlet setText:nil];
+    [contentOutlet setText:nil];
+     
 }
 
 - (IBAction)submitBtnClicked:(UIBarButtonItem *)sender {
-    if( titleOutlet.text == @"" || contentOutlet.text == @"") {
-        
+    if ([titleOutlet.text isEqualToString:@""] || [contentOutlet.text isEqualToString:@""]) {
+                 
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Note Title and Content must be populated to crate a new note" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
         [alert show];
         

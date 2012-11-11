@@ -50,6 +50,14 @@
 
 - (IBAction)saveUpdates {
     NSLog(@"SaveUpdates Clicked %@", self.noteData.title);
+    //update notedate
+    [titleOutlet resignFirstResponder];
+    [contentOutlet resignFirstResponder];
+}
+
+- (IBAction)backgroundTap:(id)sender {
+    [titleOutlet resignFirstResponder];
+    [contentOutlet resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
