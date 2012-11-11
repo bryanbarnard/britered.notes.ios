@@ -57,7 +57,6 @@
 
     [titleOutlet setText:nil];
     [contentOutlet setText:nil];
-     
 }
 
 - (IBAction)submitBtnClicked:(UIBarButtonItem *)sender {

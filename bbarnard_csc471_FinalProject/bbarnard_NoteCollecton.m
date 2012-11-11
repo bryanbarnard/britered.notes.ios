@@ -21,6 +21,8 @@ static sqlite3 *db = nil;
  */
 +(NSMutableArray *) getNotes {
 
+    //bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *) [[UIApplication sharedApplication] delegate];
+    
     //get notes from database
     NSMutableArray *noteArray = [[NSMutableArray alloc] init];
     
