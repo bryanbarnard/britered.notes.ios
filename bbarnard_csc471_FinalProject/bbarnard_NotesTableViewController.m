@@ -148,7 +148,6 @@
 
     [self.detailController setTitle: note.title];
     self.detailController.noteData = note;
-    
     [self.navigationController pushViewController:self.detailController animated:YES];
 }
 

@@ -16,7 +16,7 @@
 
 @implementation bbarnard_NewNoteViewController
 
-@synthesize titleOutlet, contentOutlet, saveBtnOutlet;
+@synthesize titleOutlet, contentOutlet;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,31 +47,37 @@
 - (void)viewDidUnload {
     [self setTitleOutlet:nil];
     [self setContentOutlet:nil];
-    [self setSaveBtnOutlet:nil];
     [super viewDidUnload];
 }
-- (IBAction)submitBtnClicked:(UIButton *)sender {
 
+- (IBAction)cancelBtnClicked:(UIBarButtonItem *)sender {
+    //clear all fields and dismiss keyboard
+    //dismiss keyboard
+    
+}
+
+- (IBAction)submitBtnClicked:(UIBarButtonItem *)sender {
     if( titleOutlet.text == @"" || contentOutlet.text == @"") {
-        //alert empty notes not allowed
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Note Title and Content must be populated to crate a new note" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
+        [alert show];
+        
         return;
     }
     
     
-    /* init new note */
     bbarnard_NoteData *newNote = [[bbarnard_NoteData alloc] init];
     
-    /* must get these values from the gui */
     [newNote setTitle: titleOutlet.text];
     [newNote setContent: contentOutlet.text];
     
-    /* push to db */
+    // push to db
     if ([bbarnard_NoteCollecton createNote:newNote]) {
         //alert note created;
     } else {
         //alert error
     }
     
-    /* on successful save we want to return to the tableView */
+    // on successful save we want to return to the tableView
 }
 @end

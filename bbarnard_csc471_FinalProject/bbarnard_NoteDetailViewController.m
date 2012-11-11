@@ -18,7 +18,6 @@
 @synthesize titleOutlet;
 @synthesize contentOutlet;
 @synthesize noteData;
-@synthesize saveBtnOutlet;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,6 +41,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIBarButtonItem *saveButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(saveUpdates)];
+    self.navigationItem.rightBarButtonItem = saveButtonItem;
+    
+    
+}
+
+- (IBAction)saveUpdates {
+    NSLog(@"SaveUpdates Clicked %@", self.noteData.title);
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,8 +60,6 @@
 - (void)viewDidUnload {
     [self setTitleOutlet:nil];
     [self setContentOutlet:nil];
-    [self setSaveBtnOutlet:nil];
-    [self setDeleteBtnOutlet:nil];
     [super viewDidUnload];
 }
 
@@ -62,7 +68,6 @@
     [self setTitle: self.noteData.title];
     [self.titleOutlet setText: self.noteData.title];
     [self.contentOutlet setText: self.noteData.content];
-    [self.saveBtnOutlet setEnabled:NO];
 }
 
 @end
