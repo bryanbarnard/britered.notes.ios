@@ -20,11 +20,10 @@ static sqlite3 *db = nil;
  * get notes from SQLLITE DB
  */
 +(NSMutableArray *) getNotes {
-
-    //bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *) [[UIApplication sharedApplication] delegate];
     
-    //get notes from database
     NSMutableArray *noteArray = [[NSMutableArray alloc] init];
+    NSString *dbPath = [bbarnard_NoteCollecton getDBPath];
+    NSLog(@"dbPath: %@ ", dbPath);
     
     //short circuit if the db file does not exist
     if(![self checkDbExists]) {
@@ -33,8 +32,6 @@ static sqlite3 *db = nil;
 
     @try
     {
-        NSString *dbPath = [[[NSBundle mainBundle] resourcePath ]stringByAppendingPathComponent:@"bbarnard_notesdb.sqlite"];
-
         if (sqlite3_open([dbPath UTF8String], &db) == SQLITE_OK) {
         
             const char *sql = "SELECT noteId, title, content FROM notes";
@@ -75,10 +72,20 @@ static sqlite3 *db = nil;
     }
 }
 
++ (NSString *) getDBPath {
+	
+	//Search for standard documents using NSSearchPathForDirectoriesInDomains
+	//First Param = Searching the documents directory
+	//Second Param = Searching the Users directory and not the System
+	//Expand any tildes and identify home directories.
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory , NSUserDomainMask, YES);
+	NSString *documentsDir = [paths objectAtIndex:0];
+	return [documentsDir stringByAppendingPathComponent:@"bbarnard_notesdb.sqlite"];
+}
 
 +(BOOL)checkDbExists {
     NSFileManager *fileMgr = [NSFileManager defaultManager];
-    NSString *dbPath = [[[NSBundle mainBundle] resourcePath ]stringByAppendingPathComponent:@"bbarnard_notesdb.sqlite"];
+    NSString *dbPath = [bbarnard_NoteCollecton getDBPath];
     BOOL success = [fileMgr fileExistsAtPath:dbPath];
     
     if(!success)
@@ -108,6 +115,7 @@ static sqlite3 *db = nil;
     NSAssert(noteObject != nil, @"Invalid Argument Passed to createNote, noteObject Nil.");
     bbarnard_NoteData *note = noteObject;
     
+    /* set time values */
     NSTimeInterval nowEpoch = [[NSDate date] timeIntervalSince1970];
     NSString *nowEpochString = [NSString stringWithFormat:@"%f", nowEpoch];
     BOOL insertSuccess;
@@ -122,17 +130,17 @@ static sqlite3 *db = nil;
         return NO;
     }
 
-        sqlite3_stmt *sqlStatement;
-        const char *sql = "insert into Notes(created_on, updated_on, content, title, altId, author) Values(?, ?, ?, ?, ?, ?)";
+        sqlite3_stmt *sqlStatement = nil;
+        const char *sql = "INSERT INTO Notes(created_on, updated_on, content, title, altId, author) Values(?, ?, ?, ?, ?, ?)";
         
         //open
-        NSString *dbPath = [[[NSBundle mainBundle] resourcePath ]stringByAppendingPathComponent:@"bbarnard_notesdb.sqlite"];
+        NSString *dbPath = [bbarnard_NoteCollecton getDBPath];
 
         if(SQLITE_OK == sqlite3_open([dbPath UTF8String], &db)) {
             NSLog(@"db open ok");
         }
 
-        NSLog(@"Preparing Statement");
+        NSLog(@"Preparing Insert Statement");
         //prepare and catch error
         if (sqlite3_prepare_v2(db, sql, -1, &sqlStatement, NULL) != SQLITE_OK) {
             NSAssert1(0, @"Error while creating insert statement. '%s'", sqlite3_errmsg(db));
@@ -146,7 +154,7 @@ static sqlite3 *db = nil;
         sqlite3_bind_text(sqlStatement, 5, [[note altId] UTF8String], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(sqlStatement, 6, [[note author] UTF8String], -1, SQLITE_TRANSIENT);
         
-        NSLog(@"Statement Prepared.");
+        NSLog(@"Insert Statement Prepared.");
 
     @try {
         if (SQLITE_DONE != sqlite3_step(sqlStatement)) {
@@ -157,9 +165,7 @@ static sqlite3 *db = nil;
             insertSuccess = YES;
             NSLog(@"New Note Successfully Created. ID: %d", note.noteId);
         }
-    
-
-        //TODO: update object in array        
+        //TODO: update object in array and refresh tableview
     }
     @catch (NSException *exception) {
         NSLog(@"An exception occured: %@", [exception reason]);
@@ -180,36 +186,80 @@ static sqlite3 *db = nil;
  * true success, false fail
  */
 +(BOOL) updateNote:(bbarnard_NoteData *)noteObject {
-    
+
+    NSAssert(noteObject != nil, @"Invalid Argument Passed to updateNote, noteObject Nil.");
+
     if(![bbarnard_NoteCollecton checkDbExists]) {
         return NO;
     }
-        
+
+    bbarnard_NoteData *note = noteObject;
+
+    /* set time values */
+    NSTimeInterval nowEpoch = [[NSDate date] timeIntervalSince1970];
+    NSString *nowEpochString = [NSString stringWithFormat:@"%f", nowEpoch];
+
+    /* return value defined */
+    BOOL updateSuccess;
+
+    /* set any note object values that are not yet set*/
+    if ([note.created_on isEqualToString:@""]) {
+        [note setCreated_on: nowEpochString];
+    }
+
+    if ([note.author isEqualToString:@""]) {
+        [note setAuthor: @"1"];
+    }
+
+    if ([note.altId isEqualToString:@""]) {
+        [note setAltId:@"1"];
+    }
+
+    [note setUpdated_on: nowEpochString];
+
+    sqlite3_stmt *sqlStatement = nil;
+    const char *sql = "UPDATE notes SET updated_on = ?, content = ?, title = ? WHERE noteId = ?";
+
+    /* open database */
+    NSString *dbPath = [bbarnard_NoteCollecton getDBPath];
+    if(SQLITE_OK == sqlite3_open([dbPath UTF8String], &db)) {
+        NSLog(@"db open ok");
+    }
+
+    /* prepare statement */
+    NSLog(@"Preparing Insert Statement");
+    if (sqlite3_prepare_v2(db, sql, -1, &sqlStatement, NULL) != SQLITE_OK) {
+        NSAssert1(0, @"Error while creating update statement. '%s'", sqlite3_errmsg(db));
+    }
+
+    /* set sql statement variables */
+    sqlite3_bind_text(sqlStatement, 1, [[note updated_on] UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(sqlStatement, 2, [[note content] UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(sqlStatement, 3, [[note title] UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_int(sqlStatement, 4, note.noteId);
+
+    NSLog(@"Update Statement Prepared.");
+
     @try {
-        
+        if (SQLITE_DONE != sqlite3_step(sqlStatement)) {
+            NSAssert1(0, @"Error while updating data. '%s'", sqlite3_errmsg(db));
+            updateSuccess = NO;
+        } else {
+            updateSuccess = YES;
+            NSLog(@"Note Successfully Updated. ID: %d", note.noteId);
+        }
+        //TODO: update object in collection array and refresh TableView
     }
     @catch (NSException *exception) {
         NSLog(@"An exception occured: %@", [exception reason]);
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"DB Error" message:@"Error updating note in SQLite Db" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
         [alert show];
-
     }
     @finally {
-        return NO;
+        sqlite3_finalize(sqlStatement);
+        sqlite3_close(db);
+        return updateSuccess;
     }
-}
-
-+(NSMutableString*) sqlite3StmtToString:(sqlite3_stmt*) statement
-{
-    NSMutableString *s = [NSMutableString new];
-    [s appendString:@"{\"statement\":["];
-    for (int c = 0; c < sqlite3_column_count(statement); c++){
-        [s appendFormat:@"{\"column\":\"%@\",\"value\":\"%@\"}",[NSString stringWithUTF8String:(char*)sqlite3_column_name(statement, c)],[NSString stringWithUTF8String:(char*)sqlite3_column_text(statement, c)]];
-        if (c < sqlite3_column_count(statement) - 1)
-            [s appendString:@","];
-    }
-    [s appendString:@"]}"];
-    return s;
 }
 
 /**
@@ -219,23 +269,63 @@ static sqlite3 *db = nil;
  */
 +(BOOL) deleteNote:(bbarnard_NoteData *)noteObject {
 
+    NSAssert(noteObject != nil, @"Invalid Argument Passed to updateNote, noteObject Nil.");
+
     if(![bbarnard_NoteCollecton checkDbExists]) {
         return NO;
     }
-    
+
+    bbarnard_NoteData *note = noteObject;
+
+    /* return value defined */
+    BOOL deleteSuccess;
+
+    NSLog(@"NoteId for delete: %d", [note noteId]);
+    /* validate we have a note id and log*/
+    if (note.noteId == 0) {
+        NSLog(@"Invalid noteId passed for delete");
+        return deleteSuccess = NO;
+    }
+
+    sqlite3_stmt *sqlStatement = nil;
+    const char *sql = "DELETE FROM notes WHERE noteId = ?";
+
+    /* open database */
+    NSString *dbPath = [bbarnard_NoteCollecton getDBPath];
+    if(SQLITE_OK == sqlite3_open([dbPath UTF8String], &db)) {
+        NSLog(@"db open ok");
+    }
+
+    /* prepare statement */
+    NSLog(@"Preparing Insert Statement");
+    if (sqlite3_prepare_v2(db, sql, -1, &sqlStatement, NULL) != SQLITE_OK) {
+        NSAssert1(0, @"Error while creating update statement. '%s'", sqlite3_errmsg(db));
+    }
+
+    /* set sql statement variables */
+    sqlite3_bind_int(sqlStatement, 1, note.noteId);
+
+    NSLog(@"Delete Statement Prepared.");
+
     @try {
-        
+        if (SQLITE_DONE != sqlite3_step(sqlStatement)) {
+            NSAssert1(0, @"Error while deleting data. '%s'", sqlite3_errmsg(db));
+            deleteSuccess = NO;
+        } else {
+            deleteSuccess = YES;
+            NSLog(@"Note Successfully Deleted. ID: %d", note.noteId);
+        }
+        //TODO: update object in collection array and refresh TableView
     }
     @catch (NSException *exception) {
         NSLog(@"An exception occured: %@", [exception reason]);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"DB Error" message:@"Error deleting note in SQLite Db" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"DB Error" message:@"Error updating note in SQLite Db" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
         [alert show];
-
     }
     @finally {
-        return NO;
+        sqlite3_finalize(sqlStatement);
+        sqlite3_close(db);
+        return deleteSuccess;
     }
 }
-
-
 @end
