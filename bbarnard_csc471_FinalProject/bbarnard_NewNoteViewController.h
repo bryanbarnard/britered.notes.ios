@@ -13,7 +13,4 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleOutlet;
 @property (weak, nonatomic) IBOutlet UITextView *contentOutlet;
 
-- (IBAction)cancelBtnClicked:(UIBarButtonItem *)sender;
-- (IBAction)submitBtnClicked:(UIBarButtonItem *)sender;
-
 @end

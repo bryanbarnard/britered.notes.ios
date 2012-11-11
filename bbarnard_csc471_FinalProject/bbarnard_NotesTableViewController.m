@@ -44,8 +44,12 @@
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBtnClicked:)];
     self.detailController = [[bbarnard_NoteDetailViewController alloc] initWithNibName:@"bbarnard_NoteDetailViewController" bundle:nil];
-    self.notesArray = [bbarnard_NoteCollecton getNotes];
+    //self.notesArray = [bbarnard_NoteCollecton getNotes];
     self.title = @"Note List";
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+
 }
 
 - (void)viewDidUnload
@@ -66,11 +70,13 @@
     NSLog(@"Add Note Button Clicked.");
 
     
-    if(noteController == nil)
+    if(noteController == nil) {
         noteController = [[bbarnard_NewNoteViewController alloc] initWithNibName:@"bbarnard_NewNoteViewController" bundle:nil];
+    }
 
-    if(addNavigationController == nil)
+    if(addNavigationController == nil) {
         addNavigationController = [[UINavigationController alloc] initWithRootViewController:noteController];
+    }
 
     [self.navigationController presentModalViewController:addNavigationController animated:YES];
 }

@@ -30,6 +30,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setTitle:@"Add Note"];
+    self.navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelBtnClicked:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveBtnClicked:)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,16 +53,16 @@
     [super viewDidUnload];
 }
 
-- (IBAction)cancelBtnClicked:(UIBarButtonItem *)sender {
+- (IBAction)cancelBtnClicked:(id)sender {
     //clear all fields and dismiss keyboard
     [titleOutlet resignFirstResponder];
     [contentOutlet resignFirstResponder];
-
     [titleOutlet setText:nil];
     [contentOutlet setText:nil];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
-- (IBAction)submitBtnClicked:(UIBarButtonItem *)sender {
+- (IBAction)saveBtnClicked:(id)sender {
     if ([titleOutlet.text isEqualToString:@""] || [contentOutlet.text isEqualToString:@""]) {
                  
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Note Title and Content must be populated to crate a new note" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
@@ -67,8 +70,7 @@
         
         return;
     }
-    
-    
+
     bbarnard_NoteData *newNote = [[bbarnard_NoteData alloc] init];
     
     [newNote setTitle: titleOutlet.text];
@@ -82,5 +84,6 @@
     }
     
     // on successful save we want to return to the tableView
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 @end

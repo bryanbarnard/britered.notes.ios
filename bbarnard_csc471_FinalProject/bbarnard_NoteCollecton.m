@@ -8,6 +8,7 @@
 
 #import "bbarnard_NoteCollecton.h"
 #import "bbarnard_NoteData.h"
+#import "bbarnardAppDelegate.h"
 
 static sqlite3 *db = nil;
 
@@ -17,18 +18,12 @@ static sqlite3 *db = nil;
 @implementation bbarnard_NoteCollecton
 
 /**
- * get notes from SQLLITE DB
+ * get notes from SQLLITE DB and populate array in appDelegate
  */
-+(NSMutableArray *) getNotes {
-    
-    NSMutableArray *noteArray = [[NSMutableArray alloc] init];
-    NSString *dbPath = [bbarnard_NoteCollecton getDBPath];
++(void)getNotes:(NSString *)dbPath {
+
     NSLog(@"dbPath: %@ ", dbPath);
-    
-    //short circuit if the db file does not exist
-    if(![self checkDbExists]) {
-        return noteArray;
-    }
+    bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *)[[UIApplication sharedApplication] delegate];
 
     @try
     {
@@ -40,16 +35,13 @@ static sqlite3 *db = nil;
             if(sqlite3_prepare(db, sql, -1, &sqlStatement, NULL) == SQLITE_OK) {
                 
                 while (sqlite3_step(sqlStatement) == SQLITE_ROW) {
-                    bbarnard_NoteData *MyNote = [[bbarnard_NoteData alloc]init];
-            
-                    MyNote.noteId = sqlite3_column_int(sqlStatement, 0);
-            
-                    MyNote.title = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement,1)];
-            
-                    MyNote.content = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 2)];
-            
-                    [noteArray addObject:MyNote];
+                    bbarnard_NoteData *noteObj = [[bbarnard_NoteData alloc]init];
+                    noteObj.noteId = sqlite3_column_int(sqlStatement, 0);
+                    noteObj.title = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement,1)];
+                    noteObj.content = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 2)];
+                    //TODO: add additional attributes here
 
+                    [appDelegate.noteArray addObject:noteObj];
                 }
             
             } else {
@@ -67,7 +59,6 @@ static sqlite3 *db = nil;
     }
     @finally
     {
-        return noteArray;
         sqlite3_close(db);
     }
 }
