@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface bbarnard_SettingsPageViewController : UIViewController
+- (IBAction)switched_SyncNoteAdd:(UISwitch *)sender;
+- (IBAction)switched_SyncNoteDelete:(UISwitch *)sender;
+- (IBAction)switched_SyncNoteOverwriteLocal:(UISwitch *)sender;
+@property (weak, nonatomic) IBOutlet UISwitch *syncNoteAddOutlet;
+@property (weak, nonatomic) IBOutlet UISwitch *syncNoteDeleteOutlet;
+@property (weak, nonatomic) IBOutlet UISwitch *syncNoteOverwriteLocalOutlet;
 
 @end

@@ -158,7 +158,6 @@ static sqlite3 *db = nil;
             insertSuccess = YES;
             NSLog(@"New Note Successfully Created. ID: %d", note.noteId);
         }
-        //TODO: update object in array and refresh tableview
     }
     @catch (NSException *exception) {
         NSLog(@"An exception occured: %@", [exception reason]);

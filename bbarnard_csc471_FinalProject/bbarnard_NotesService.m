@@ -8,7 +8,6 @@
 
 #import "bbarnard_NotesService.h"
 #import "bbarnard_NoteData.h"
-#import "bbarnardAppDelegate.h"
 
 @implementation bbarnard_NotesService
 @synthesize responseData;
@@ -47,6 +46,7 @@
 
 /* this is the meat */
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSInteger noteCount = 0;
     NSLog(@"connectionDidFinishLoading");
     NSLog(@"Succeeded! Received %d bytes of data", [responseData length]);
     NSString *t = [[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding];
@@ -58,13 +58,31 @@
     
     if (!jsonArray) {
         NSLog(@"error parsing json response");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sync Error" message:@"Error retreiving notes from web service" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
+        [alert show];
     } else {
         for(NSDictionary *item in jsonArray) {
-            NSLog(@"Item: %@", item);
-            
-            
-            
+                NSLog(@"Title: %@ ", [item objectForKey:@"Title"]);
+                NSLog(@"Content: %@ ", [item objectForKey:@"Content"]);
+                noteCount++;
         }
+        
+        NSString *result = [NSString stringWithFormat:@" %d notes retreived from web service", noteCount];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sync Complete" message:result delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
+        [alert show];
     }
 }
-@end
+
+- (void)addNote:(bbarnard_NoteData *)noteObject {
+    
+    NSLog(@"NoteService Add Note Called");
+}
+
+
+- (void)deleteNote:(bbarnard_NoteData *)noteObject {
+    
+    NSLog(@"NoteService Delete Note Called");
+}
+
+@end		

@@ -9,6 +9,7 @@
 #import "bbarnardAppDelegate.h"
 #import "bbarnard_NoteData.h"
 #import "bbarnard_NoteCollecton.h"
+#import "bbarnard_NotesService.h"
 
 
 @implementation bbarnardAppDelegate
@@ -16,6 +17,8 @@
 @synthesize window = _window;
 @synthesize rootController;
 @synthesize noteArray;
+@synthesize syncAdd, syncDelete, syncNoteOverwriteLocal;
+@synthesize noteService;
 
 #pragma mark -
 #pragma mark Application Lifecycle
@@ -29,9 +32,17 @@
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     self.noteArray = tempArray;
 
+    /* init note service */
+    self.noteService = [[bbarnard_NotesService alloc] init];
+    
     /* load notes array from db */
     [bbarnard_NoteCollecton getNotesDB:[self getDBPath]];
 
+    /* set default settings */
+    self.syncAdd = NO;
+    self.syncDelete = NO;
+    self.syncNoteOverwriteLocal = NO;
+        
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     [[NSBundle mainBundle] loadNibNamed:@"bbarnard_TabBarController" owner:self options:nil]; [self.window addSubview:rootController.view];
@@ -80,6 +91,11 @@
     //Delete it from the database.
     [bbarnard_NoteCollecton deleteNote:noteObj];
 
+    //Delete from WebService
+    if (self.syncDelete) {
+        [self.noteService deleteNote:noteObj];
+    }
+    
     //Remove it from the array.
     [noteArray removeObject:noteObj];
 }
@@ -88,6 +104,11 @@
 
     //Add it to the database.
     [bbarnard_NoteCollecton createNote:noteObj];
+    
+    //Add to WebService
+    if (self.syncAdd) {
+        [self.noteService addNote:noteObj];
+    }
 
     //Add it to the note array.
     [noteArray addObject:noteObj];
@@ -101,5 +122,9 @@
     [noteArray replaceObjectAtIndex:[noteObj.altId integerValue] withObject:noteObj];
 }
 
+- (void) fetchNotesFromService
+{
+    [self.noteService fetchNotes];
+}
 
 @end

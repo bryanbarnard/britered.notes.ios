@@ -18,8 +18,6 @@
 		840C2DE2164224F600E4D056 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840C2DE1164224F600E4D056 /* Default@2x.png */; };
 		840C2DE4164224F600E4D056 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840C2DE3164224F600E4D056 /* Default-568h@2x.png */; };
 		840C2DE7164224F600E4D056 /* bbarnard_csc471_FinalProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 840C2DE5164224F600E4D056 /* bbarnard_csc471_FinalProject.xcdatamodeld */; };
-		840C2DF01642273900E4D056 /* bbarnard_LoginPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C2DEE1642273900E4D056 /* bbarnard_LoginPageViewController.m */; };
-		840C2DF11642273900E4D056 /* bbarnard_LoginPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840C2DEF1642273900E4D056 /* bbarnard_LoginPageViewController.xib */; };
 		840C2DF81642282000E4D056 /* bbarnard_NoteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C2DF61642282000E4D056 /* bbarnard_NoteDetailViewController.m */; };
 		840C2DF91642282000E4D056 /* bbarnard_NoteDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840C2DF71642282000E4D056 /* bbarnard_NoteDetailViewController.xib */; };
 		840C2DFE164229FD00E4D056 /* bbarnard_UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C2DFD164229FD00E4D056 /* bbarnard_UserData.m */; };
@@ -63,9 +61,6 @@
 		840C2DE1164224F600E4D056 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		840C2DE3164224F600E4D056 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		840C2DE6164224F600E4D056 /* bbarnard_csc471_FinalProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = bbarnard_csc471_FinalProject.xcdatamodel; sourceTree = "<group>"; };
-		840C2DED1642273900E4D056 /* bbarnard_LoginPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_LoginPageViewController.h; sourceTree = "<group>"; };
-		840C2DEE1642273900E4D056 /* bbarnard_LoginPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_LoginPageViewController.m; sourceTree = "<group>"; };
-		840C2DEF1642273900E4D056 /* bbarnard_LoginPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bbarnard_LoginPageViewController.xib; sourceTree = "<group>"; };
 		840C2DF51642282000E4D056 /* bbarnard_NoteDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_NoteDetailViewController.h; sourceTree = "<group>"; };
 		840C2DF61642282000E4D056 /* bbarnard_NoteDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_NoteDetailViewController.m; sourceTree = "<group>"; };
 		840C2DF71642282000E4D056 /* bbarnard_NoteDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bbarnard_NoteDetailViewController.xib; sourceTree = "<group>"; };
@@ -184,8 +179,6 @@
 			children = (
 				84D55563164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.h */,
 				84D55564164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.m */,
-				840C2DED1642273900E4D056 /* bbarnard_LoginPageViewController.h */,
-				840C2DEE1642273900E4D056 /* bbarnard_LoginPageViewController.m */,
 				840C2DF51642282000E4D056 /* bbarnard_NoteDetailViewController.h */,
 				840C2DF61642282000E4D056 /* bbarnard_NoteDetailViewController.m */,
 				84629AF71645F1A700B626D5 /* bbarnard_AboutPageViewController.h */,
@@ -224,7 +217,6 @@
 				842D65A71645F7FB0089B6FD /* bbarnard_SettingsPageViewController.xib */,
 				84629AFE1645F47200B626D5 /* bbarnard_SyncPageViewController.xib */,
 				84629AF91645F1A700B626D5 /* bbarnard_AboutPageViewController.xib */,
-				840C2DEF1642273900E4D056 /* bbarnard_LoginPageViewController.xib */,
 				840C2DF71642282000E4D056 /* bbarnard_NoteDetailViewController.xib */,
 				84629AEA1645A02F00B626D5 /* bbarnard_TabBarController.xib */,
 				84D55565164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.xib */,
@@ -308,7 +300,6 @@
 				840C2DE0164224F600E4D056 /* Default.png in Resources */,
 				840C2DE2164224F600E4D056 /* Default@2x.png in Resources */,
 				840C2DE4164224F600E4D056 /* Default-568h@2x.png in Resources */,
-				840C2DF11642273900E4D056 /* bbarnard_LoginPageViewController.xib in Resources */,
 				840C2DF91642282000E4D056 /* bbarnard_NoteDetailViewController.xib in Resources */,
 				84629AEB1645A02F00B626D5 /* bbarnard_TabBarController.xib in Resources */,
 				84629AEE1645A3B700B626D5 /* 33-cabinet.png in Resources */,
@@ -335,7 +326,6 @@
 				840C2DDA164224F600E4D056 /* main.m in Sources */,
 				840C2DDE164224F600E4D056 /* bbarnardAppDelegate.m in Sources */,
 				840C2DE7164224F600E4D056 /* bbarnard_csc471_FinalProject.xcdatamodeld in Sources */,
-				840C2DF01642273900E4D056 /* bbarnard_LoginPageViewController.m in Sources */,
 				840C2DF81642282000E4D056 /* bbarnard_NoteDetailViewController.m in Sources */,
 				840C2DFE164229FD00E4D056 /* bbarnard_UserData.m in Sources */,
 				840C2E0116422A0D00E4D056 /* bbarnard_NoteData.m in Sources */,

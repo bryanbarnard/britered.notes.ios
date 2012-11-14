@@ -7,18 +7,20 @@
 //
 
 #import "bbarnard_SyncPageViewController.h"
+#import "bbarnardAppDelegate.h"
 
 @interface bbarnard_SyncPageViewController ()
-
 @end
 
 @implementation bbarnard_SyncPageViewController
+
+//@synthesize notesSrv;
+@synthesize lastSyncOutlet;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -26,13 +28,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)syncBtnClicked:(UIButton *)sender {
+
+    bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate fetchNotesFromService];
+    
+    NSDate *currDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"MM/dd/YY HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:currDate];
+    NSLog(@"%@",dateString);
+    lastSyncOutlet.text = dateString;
+    
+}
+- (void)viewDidUnload {
+    [self setLastSyncOutlet:nil];
+    [super viewDidUnload];
+}
 @end

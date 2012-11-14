@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class bbarnard_NoteData;
 @interface bbarnard_NotesService : NSObject {
     NSURLConnection *connection;
 }
@@ -15,5 +16,7 @@
 @property (nonatomic, strong) NSMutableData *responseData;
 
 - (void)fetchNotes;
+- (void)addNote:(bbarnard_NoteData *)noteObject;
+- (void)deleteNote:(bbarnard_NoteData *)noteObject;
 
 @end
