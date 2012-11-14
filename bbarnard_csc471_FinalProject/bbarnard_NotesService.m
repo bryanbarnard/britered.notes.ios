@@ -67,12 +67,19 @@
     
     self.responseData = [NSMutableData data];
     self.requestType = @"DELETENOTE";
+
+    NSLog(@"Attempting to delete note with altId:%@", [noteObject altId]);
+    NSString *urlBase = @"http://britrednotes.azurewebsites.net/api/notes";
+    NSString *urlParams = [NSString stringWithFormat: @"?sysId=%@", [noteObject altId]];
+    NSString *fullUrl = [NSString stringWithFormat:@"%@%@", urlBase, urlParams];
     
-    NSURL *briteredNotes = [NSURL URLWithString:@"http://britrednotes.azurewebsites.net/api/notes?pageIndex=1&pageSize=10"];
+    NSURL *briteredNotes = [NSURL URLWithString: fullUrl];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:briteredNotes];
     
-    /* add custom header */
+    
+    /* customize the request */
     [request addValue:@"0ca532cc-1918-475e-ae30-a4a3ac25625c" forHTTPHeaderField:@"AuthorId"];
+    [request setHTTPMethod:@"DELETE"];
     
     connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 }
@@ -124,7 +131,7 @@
     NSError *myError = nil;
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&myError];
     
-    if (!jsonArray) {
+    if (![self.requestType isEqualToString:@"DELETENOTE"] && !jsonArray) {
         NSLog(@"error parsing json response");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sync Error" message:@"Error retreiving notes from web service" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
         [alert show];

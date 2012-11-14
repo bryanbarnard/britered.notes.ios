@@ -30,7 +30,7 @@ static sqlite3 *db = nil;
     {
         if (sqlite3_open([dbPath UTF8String], &db) == SQLITE_OK) {
         
-            const char *sql = "SELECT noteId, title, content FROM notes";
+            const char *sql = "SELECT noteId, title, content, altId, author FROM notes";
             sqlite3_stmt *sqlStatement;
         
             if(sqlite3_prepare(db, sql, -1, &sqlStatement, NULL) == SQLITE_OK) {
@@ -40,7 +40,8 @@ static sqlite3 *db = nil;
                     noteObj.noteId = sqlite3_column_int(sqlStatement, 0);
                     noteObj.title = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement,1)];
                     noteObj.content = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 2)];
-                    //TODO: add additional attributes here
+                    noteObj.altId = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 3)];
+                    noteObj.author = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 4)];
 
                     [appDelegate.noteArray addObject:noteObj];
                 }
@@ -116,9 +117,15 @@ static sqlite3 *db = nil;
     /* set any note object values that are not yet set*/
     [note setCreated_on: nowEpochString];
     [note setUpdated_on: nowEpochString];
-    [note setAuthor: @"1"];
-    [note setAltId: @"1"];
-
+    
+    if ([noteObject.altId isEqualToString:@""] || noteObject.altId == nil) {
+        [note setAltId: @"1"];
+    }
+    
+    if ([noteObject.author isEqualToString:@""] || noteObject.author == nil) {
+        [note setAuthor: @"1"];
+    }
+    
     if(![bbarnard_NoteCollecton checkDbExists]) {
         return NO;
     }

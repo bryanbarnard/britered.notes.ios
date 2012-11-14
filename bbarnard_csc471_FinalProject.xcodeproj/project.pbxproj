@@ -20,7 +20,6 @@
 		840C2DE7164224F600E4D056 /* bbarnard_csc471_FinalProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 840C2DE5164224F600E4D056 /* bbarnard_csc471_FinalProject.xcdatamodeld */; };
 		840C2DF81642282000E4D056 /* bbarnard_NoteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C2DF61642282000E4D056 /* bbarnard_NoteDetailViewController.m */; };
 		840C2DF91642282000E4D056 /* bbarnard_NoteDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840C2DF71642282000E4D056 /* bbarnard_NoteDetailViewController.xib */; };
-		840C2DFE164229FD00E4D056 /* bbarnard_UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C2DFD164229FD00E4D056 /* bbarnard_UserData.m */; };
 		840C2E0116422A0D00E4D056 /* bbarnard_NoteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C2E0016422A0D00E4D056 /* bbarnard_NoteData.m */; };
 		840C2E0416422A2400E4D056 /* bbarnard_NoteCollecton.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C2E0316422A2400E4D056 /* bbarnard_NoteCollecton.m */; };
 		842D65A81645F7FB0089B6FD /* bbarnard_SettingsPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D65A61645F7FB0089B6FD /* bbarnard_SettingsPageViewController.m */; };
@@ -64,8 +63,6 @@
 		840C2DF51642282000E4D056 /* bbarnard_NoteDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_NoteDetailViewController.h; sourceTree = "<group>"; };
 		840C2DF61642282000E4D056 /* bbarnard_NoteDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_NoteDetailViewController.m; sourceTree = "<group>"; };
 		840C2DF71642282000E4D056 /* bbarnard_NoteDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bbarnard_NoteDetailViewController.xib; sourceTree = "<group>"; };
-		840C2DFC164229FD00E4D056 /* bbarnard_UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_UserData.h; sourceTree = "<group>"; };
-		840C2DFD164229FD00E4D056 /* bbarnard_UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_UserData.m; sourceTree = "<group>"; };
 		840C2DFF16422A0D00E4D056 /* bbarnard_NoteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_NoteData.h; sourceTree = "<group>"; };
 		840C2E0016422A0D00E4D056 /* bbarnard_NoteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_NoteData.m; sourceTree = "<group>"; };
 		840C2E0216422A2400E4D056 /* bbarnard_NoteCollecton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_NoteCollecton.h; sourceTree = "<group>"; };
@@ -198,8 +195,6 @@
 		840C2DFB1642298E00E4D056 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				840C2DFC164229FD00E4D056 /* bbarnard_UserData.h */,
-				840C2DFD164229FD00E4D056 /* bbarnard_UserData.m */,
 				840C2DFF16422A0D00E4D056 /* bbarnard_NoteData.h */,
 				840C2E0016422A0D00E4D056 /* bbarnard_NoteData.m */,
 				840C2E0216422A2400E4D056 /* bbarnard_NoteCollecton.h */,
@@ -327,7 +322,6 @@
 				840C2DDE164224F600E4D056 /* bbarnardAppDelegate.m in Sources */,
 				840C2DE7164224F600E4D056 /* bbarnard_csc471_FinalProject.xcdatamodeld in Sources */,
 				840C2DF81642282000E4D056 /* bbarnard_NoteDetailViewController.m in Sources */,
-				840C2DFE164229FD00E4D056 /* bbarnard_UserData.m in Sources */,
 				840C2E0116422A0D00E4D056 /* bbarnard_NoteData.m in Sources */,
 				840C2E0416422A2400E4D056 /* bbarnard_NoteCollecton.m in Sources */,
 				84629AFA1645F1A700B626D5 /* bbarnard_AboutPageViewController.m in Sources */,
