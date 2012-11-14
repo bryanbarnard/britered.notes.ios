@@ -10,8 +10,9 @@
 #import "bbarnard_NotesService.h"
 
 @interface bbarnard_SyncPageViewController : UIViewController
-//@property (strong, nonatomic) bbarnard_NotesService *notesSrv;
-- (IBAction)syncBtnClicked:(UIButton *)sender;
+
 @property (weak, nonatomic) IBOutlet UILabel *lastSyncOutlet;
 
+- (IBAction)syncBtnClicked:(UIButton *)sender;
+- (IBAction)clearCacheBtnClicked:(UIButton *)sender;
 @end

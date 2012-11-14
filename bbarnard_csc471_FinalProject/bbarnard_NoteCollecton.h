@@ -17,4 +17,5 @@
 +(BOOL)createNote:(bbarnard_NoteData *)noteDataObject;
 +(BOOL)updateNote:(bbarnard_NoteData *)noteDataObject;
 +(BOOL)deleteNote:(bbarnard_NoteData *)noteDataObject;
++(BOOL)deleteNotes;
 @end

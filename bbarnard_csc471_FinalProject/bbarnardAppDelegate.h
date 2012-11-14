@@ -26,5 +26,6 @@
 - (void) addNote:(bbarnard_NoteData *)noteObj;
 - (void) updateNote:(bbarnard_NoteData *)noteObj;
 - (void) fetchNotesFromService;
+- (void) clearLocalCache;
 
 @end

@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSMutableData *responseData;
 
 - (void)fetchNotes;
-- (void)addNote:(bbarnard_NoteData *)noteObject;
-- (void)deleteNote:(bbarnard_NoteData *)noteObject;
-
+- (void)addNoteRemoteCollection:(bbarnard_NoteData *)noteObject;
+- (void)deleteNoteRemoteCollection:(bbarnard_NoteData *)noteObject;
+- (void)updateNoteRemoteCollection:(bbarnard_NoteData *)noteObject;
 @end

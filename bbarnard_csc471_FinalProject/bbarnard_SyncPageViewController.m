@@ -36,7 +36,6 @@
 }
 
 - (IBAction)syncBtnClicked:(UIButton *)sender {
-
     bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate fetchNotesFromService];
     
@@ -46,8 +45,13 @@
     NSString *dateString = [dateFormatter stringFromDate:currDate];
     NSLog(@"%@",dateString);
     lastSyncOutlet.text = dateString;
-    
 }
+
+- (IBAction)clearCacheBtnClicked:(UIButton *)sender {
+    bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate clearLocalCache];
+}
+
 - (void)viewDidUnload {
     [self setLastSyncOutlet:nil];
     [super viewDidUnload];

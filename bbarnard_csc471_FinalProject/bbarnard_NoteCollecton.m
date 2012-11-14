@@ -240,7 +240,6 @@ static sqlite3 *db = nil;
             updateSuccess = YES;
             NSLog(@"Note Successfully Updated. ID: %d", note.noteId);
         }
-        //TODO: update object in collection array and refresh TableView
     }
     @catch (NSException *exception) {
         NSLog(@"An exception occured: %@", [exception reason]);
@@ -261,7 +260,7 @@ static sqlite3 *db = nil;
  */
 +(BOOL) deleteNote:(bbarnard_NoteData *)noteObject {
 
-    NSAssert(noteObject != nil, @"Invalid Argument Passed to updateNote, noteObject Nil.");
+    NSAssert(noteObject != nil, @"Invalid Argument Passed to deleteNote, noteObject Nil.");
 
     if(![bbarnard_NoteCollecton checkDbExists]) {
         return NO;
@@ -289,9 +288,9 @@ static sqlite3 *db = nil;
     }
 
     /* prepare statement */
-    NSLog(@"Preparing Insert Statement");
+    NSLog(@"Preparing Delete Statement");
     if (sqlite3_prepare_v2(db, sql, -1, &sqlStatement, NULL) != SQLITE_OK) {
-        NSAssert1(0, @"Error while creating update statement. '%s'", sqlite3_errmsg(db));
+        NSAssert1(0, @"Error while creating delete statement. '%s'", sqlite3_errmsg(db));
     }
 
     /* set sql statement variables */
@@ -311,7 +310,64 @@ static sqlite3 *db = nil;
     }
     @catch (NSException *exception) {
         NSLog(@"An exception occured: %@", [exception reason]);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"DB Error" message:@"Error updating note in SQLite Db" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"DB Error" message:@"Error deleting note in SQLite Db" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    @finally {
+        sqlite3_finalize(sqlStatement);
+        sqlite3_close(db);
+        return deleteSuccess;
+    }
+}
+
+/**
+ * delete an existing note in database
+ * return Bool indicating success or fail
+ * true success, false fail
+ */
++(BOOL) deleteNotes
+{
+    
+    if(![bbarnard_NoteCollecton checkDbExists]) {
+        return NO;
+    }
+    
+    /* return value defined */
+    BOOL deleteSuccess;
+    
+    sqlite3_stmt *sqlStatement = nil;
+    const char *sql = "DELETE FROM notes";
+    
+    /* open database */
+    NSString *dbPath = [bbarnard_NoteCollecton getDBPath];
+    if(SQLITE_OK == sqlite3_open([dbPath UTF8String], &db)) {
+        NSLog(@"db open ok");
+    }
+    
+    /* prepare statement */
+    NSLog(@"Preparing Delete All Statement");
+    if (sqlite3_prepare_v2(db, sql, -1, &sqlStatement, NULL) != SQLITE_OK) {
+        NSAssert1(0, @"Error while creating delete all statement. '%s'", sqlite3_errmsg(db));
+    }
+        
+    NSLog(@"Delete All Statement Prepared.");
+    
+    @try {
+        if (SQLITE_DONE != sqlite3_step(sqlStatement)) {
+            NSAssert1(0, @"Error while deleting data. '%s'", sqlite3_errmsg(db));
+            deleteSuccess = NO;
+        } else {
+            deleteSuccess = YES;
+            NSLog(@"All Notes Successfully Deleted.");
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Local Note Cache Cleared" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
+            [alert show];
+
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"An exception occured: %@", [exception reason]);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"DB Error" message:@"Error deleting notes in SQLite Db" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
         [alert show];
     }
     @finally {
@@ -321,3 +377,4 @@ static sqlite3 *db = nil;
     }
 }
 @end
+

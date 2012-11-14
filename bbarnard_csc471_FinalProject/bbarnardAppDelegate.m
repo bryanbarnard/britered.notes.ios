@@ -93,13 +93,16 @@
 
     //Delete from WebService
     if (self.syncDelete) {
-        [self.noteService deleteNote:noteObj];
+        [self.noteService deleteNoteRemoteCollection:noteObj];
     }
     
     //Remove it from the array.
     [noteArray removeObject:noteObj];
 }
 
+/**
+ * this method will add to both db, collection and webservice and is only to be called from the GUI
+ */
 - (void) addNote:(bbarnard_NoteData *)noteObj {
 
     //Add it to the database.
@@ -107,7 +110,7 @@
     
     //Add to WebService
     if (self.syncAdd) {
-        [self.noteService addNote:noteObj];
+        [self.noteService addNoteRemoteCollection:noteObj];
     }
 
     //Add it to the note array.
@@ -119,6 +122,7 @@
     //Update entry in database
     [bbarnard_NoteCollecton updateNote:noteObj];
 
+    //Update entry in array
     [noteArray replaceObjectAtIndex:[noteObj.altId integerValue] withObject:noteObj];
 }
 
@@ -127,4 +131,12 @@
     [self.noteService fetchNotes];
 }
 
+- (void) clearLocalCache
+{
+    //clear all notes from db
+    [bbarnard_NoteCollecton deleteNotes];
+    
+    //clear array
+    [noteArray removeAllObjects];
+}
 @end

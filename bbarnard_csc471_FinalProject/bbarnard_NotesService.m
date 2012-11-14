@@ -8,6 +8,8 @@
 
 #import "bbarnard_NotesService.h"
 #import "bbarnard_NoteData.h"
+#import "bbarnardAppDelegate.h"
+#import "bbarnard_NoteCollecton.h"
 
 @implementation bbarnard_NotesService
 @synthesize responseData;
@@ -51,8 +53,10 @@
     NSLog(@"Succeeded! Received %d bytes of data", [responseData length]);
     NSString *t = [[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding];
     NSLog(@"jsonCheck: %@", t);
+
+    /* get ref to app delegate */
     
-    // convert to JSON
+    // serialize
     NSError *myError = nil;
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&myError];
     
@@ -64,6 +68,13 @@
         for(NSDictionary *item in jsonArray) {
                 NSLog(@"Title: %@ ", [item objectForKey:@"Title"]);
                 NSLog(@"Content: %@ ", [item objectForKey:@"Content"]);
+                NSLog(@"SysId: %@", [item objectForKey:@"SysId"]);
+                NSLog(@"AuthorID: %@", [item objectForKey:@"AuthorId"]);
+            
+            [self createAndAddLocalNote:item];
+            
+            
+            
                 noteCount++;
         }
         
@@ -74,15 +85,39 @@
     }
 }
 
-- (void)addNote:(bbarnard_NoteData *)noteObject {
+
+- (void)createAndAddLocalNote:(NSDictionary *)noteDTO {
+    bbarnard_NoteData *noteObj = [[bbarnard_NoteData alloc] init];
+    [noteObj setTitle: [noteDTO objectForKey:@"Title"]];
+    [noteObj setContent: [noteDTO objectForKey:@"Content"]];
+    [noteObj setAltId: [noteDTO objectForKey:@"SysId"]];
+    [noteObj setAuthor: [noteDTO objectForKey:@"AuthorId"]];
+    
+    NSLog(@"Note Object Created from noteDTO title: %@", [noteObj title]);
+    
+    bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *)[[UIApplication sharedApplication] delegate];
+
+    //add to app collection
+    [appDelegate.noteArray addObject:noteObj];
+    
+    //add to database
+    [bbarnard_NoteCollecton createNote:noteObj];
+}
+
+- (void)addNoteRemoteCollection:(bbarnard_NoteData *)noteObject {
     
     NSLog(@"NoteService Add Note Called");
 }
 
 
-- (void)deleteNote:(bbarnard_NoteData *)noteObject {
+- (void)deleteNoteRemoteCollection:(bbarnard_NoteData *)noteObject {
     
     NSLog(@"NoteService Delete Note Called");
+}
+
+- (void)updateNoteRemoteCollection:(bbarnard_NoteData *)noteObject {
+    
+    NSLog(@"NoteService Update Note Called");
 }
 
 @end		
