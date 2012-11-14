@@ -17,10 +17,11 @@ static sqlite3 *db = nil;
  */
 @implementation bbarnard_NoteCollecton
 
+
 /**
  * get notes from SQLLITE DB and populate array in appDelegate
  */
-+(void)getNotes:(NSString *)dbPath {
++(void)getNotesDB:(NSString *)dbPath {
 
     NSLog(@"dbPath: %@ ", dbPath);
     bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -62,6 +63,7 @@ static sqlite3 *db = nil;
         sqlite3_close(db);
     }
 }
+
 
 + (NSString *) getDBPath {
 	

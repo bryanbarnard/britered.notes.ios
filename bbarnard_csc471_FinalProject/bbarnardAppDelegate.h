@@ -20,5 +20,6 @@
 - (NSString *) getDBPath;
 - (void) removeNote:(bbarnard_NoteData *)noteObj;
 - (void) addNote:(bbarnard_NoteData *)noteObj;
+- (void) updateNote:(bbarnard_NoteData *)noteObj;
 
 @end

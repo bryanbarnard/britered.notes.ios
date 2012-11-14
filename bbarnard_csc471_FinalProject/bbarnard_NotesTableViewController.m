@@ -50,23 +50,20 @@
     [self.tableView reloadData];
 }
 
-- (void)viewDidUnload
-{
-
+- (void)viewDidUnload {
+       detailController = nil;
+       noteController = nil;
+       addNavigationController = nil;
 }
-
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
 
-//TODO
-/* add a new note modal window */
 - (IBAction)addBtnClicked:(id)sender {
     NSLog(@"Add Note Button Clicked.");
 
-    
     if(noteController == nil) {
         noteController = [[bbarnard_NewNoteViewController alloc] initWithNibName:@"bbarnard_NewNoteViewController" bundle:nil];
     }
@@ -77,7 +74,6 @@
 
     [self.navigationController presentModalViewController:addNavigationController animated:YES];
 }
-
 
 #pragma mark - Table view data source
 
@@ -94,61 +90,55 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
+    UIView* bview = [[UIView alloc] init];
+    bview.backgroundColor = [UIColor redColor];
+    [tableView setBackgroundView:bview];
+
+    [tableView setSeparatorColor:[UIColor grayColor]];
+
     static NSString *CellIdentifier = @"Cell";
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     }
 
     NSUInteger row = [indexPath row];
     bbarnard_NoteData *note = [appDelegate.noteArray objectAtIndex:row];
     
     cell.textLabel.text = note.title;
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
+
+    if (note.content.length < 20) {
+        cell.detailTextLabel.text = note.content;
+    } else {
+        NSString *subContent = [note.content substringToIndex:17];
+        NSString *etcFill = @"...";
+        NSString *contentTemp = [subContent stringByAppendingString:etcFill];
+        cell.detailTextLabel.text = contentTemp;
+    }
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        /* remove selected row from array and db */
+        NSUInteger row = [indexPath row];
+        bbarnard_NoteData *note = [appDelegate.noteArray objectAtIndex:row];
+        [appDelegate removeNote:note];
+
         // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }   
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     /* get selected row */
@@ -156,10 +146,19 @@
     
     /* get value at row and create object */
     bbarnard_NoteData *note = [appDelegate.noteArray objectAtIndex:row];
-    
-    //bbarnard_NoteData *noteData = [[bbarnard_NoteData alloc] init];
-    //noteData.title = rowValue;
+    [note setAltId:[NSString stringWithFormat:@"%d", row]];
+    [self.detailController setTitle: note.title];
+    self.detailController.noteData = note;
+    [self.navigationController pushViewController:self.detailController animated:YES];
+}
 
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    /* get selected row */
+    NSUInteger row = [indexPath row];
+
+    /* get value at row and create object */
+    bbarnard_NoteData *note = [appDelegate.noteArray objectAtIndex:row];
+    [note setAltId:[NSString stringWithFormat:@"%d", row]];
     [self.detailController setTitle: note.title];
     self.detailController.noteData = note;
     [self.navigationController pushViewController:self.detailController animated:YES];

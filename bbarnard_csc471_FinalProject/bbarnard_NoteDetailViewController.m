@@ -7,7 +7,7 @@
 //
 
 #import "bbarnard_NoteDetailViewController.h"
-#import "bbarnard_NoteData.h"
+#import "bbarnardAppDelegate.h"
 
 @interface bbarnard_NoteDetailViewController ()
 
@@ -30,7 +30,6 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil AndNoteObject:(bbarnard_NoteData *)noteDataObject
 {
-    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.noteData = noteDataObject;
@@ -41,16 +40,30 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    UIBarButtonItem *saveButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(saveUpdates)];
-    self.navigationItem.rightBarButtonItem = saveButtonItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveBtnClicked:)];
 }
 
-- (IBAction)saveUpdates {
-    NSLog(@"SaveUpdates Clicked %@", self.noteData.title);
-    //update notedate
+- (IBAction)saveBtnClicked:(id)sender {
+    //validate input from gui
+    if ([titleOutlet.text isEqualToString:@""] || [contentOutlet.text isEqualToString:@""]) {
+
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Note Title and Content must be populated to update a note" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
+
     [titleOutlet resignFirstResponder];
     [contentOutlet resignFirstResponder];
+
+    NSLog(@"SaveUpdates Clicked %@", self.noteData.title);
+
+    //update note
+    [self.noteData setTitle: titleOutlet.text];
+    [self.noteData setContent: contentOutlet.text];
+    [self.noteData setIsDirty:YES];
+
+    bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate updateNote:self.noteData];
 }
 
 - (IBAction)backgroundTap:(id)sender {
@@ -70,7 +83,6 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-
     [self setTitle: self.noteData.title];
     [self.titleOutlet setText: self.noteData.title];
     [self.contentOutlet setText: self.noteData.content];

@@ -30,7 +30,7 @@
     self.noteArray = tempArray;
 
     /* load notes array from db */
-    [bbarnard_NoteCollecton getNotes:[self getDBPath]];
+    [bbarnard_NoteCollecton getNotesDB:[self getDBPath]];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
@@ -89,8 +89,16 @@
     //Add it to the database.
     [bbarnard_NoteCollecton createNote:noteObj];
 
-    //Add it to the coffee array.
+    //Add it to the note array.
     [noteArray addObject:noteObj];
+}
+
+- (void) updateNote:(bbarnard_NoteData *)noteObj {
+
+    //Update entry in database
+    [bbarnard_NoteCollecton updateNote:noteObj];
+
+    [noteArray replaceObjectAtIndex:[noteObj.altId integerValue] withObject:noteObj];
 }
 
 

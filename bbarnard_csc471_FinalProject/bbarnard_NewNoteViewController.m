@@ -64,6 +64,7 @@
 }
 
 - (IBAction)saveBtnClicked:(id)sender {
+    //validate input from gui
     if ([titleOutlet.text isEqualToString:@""] || [contentOutlet.text isEqualToString:@""]) {
                  
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Note Title and Content must be populated to crate a new note" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
@@ -72,6 +73,7 @@
         return;
     }
 
+    //add to collection
     bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *)[[UIApplication sharedApplication] delegate];
     bbarnard_NoteData *newNote = [[bbarnard_NoteData alloc] init];
 

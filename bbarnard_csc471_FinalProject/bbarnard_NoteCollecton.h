@@ -12,7 +12,8 @@
 
 @interface bbarnard_NoteCollecton : NSObject
 
-+(void)getNotes:(NSString *)dbPath;
+
++(void)getNotesDB:(NSString *)dbPath;
 +(BOOL)createNote:(bbarnard_NoteData *)noteDataObject;
 +(BOOL)updateNote:(bbarnard_NoteData *)noteDataObject;
 +(BOOL)deleteNote:(bbarnard_NoteData *)noteDataObject;

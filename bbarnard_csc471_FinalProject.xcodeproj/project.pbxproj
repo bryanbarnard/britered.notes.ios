@@ -42,6 +42,7 @@
 		84629B001645F47300B626D5 /* bbarnard_SyncPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84629AFE1645F47200B626D5 /* bbarnard_SyncPageViewController.xib */; };
 		847C1BE5164E16B60023A249 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 847C1BE4164E16B60023A249 /* libsqlite3.dylib */; };
 		847C1BE9164E19510023A249 /* bbarnard_notesdb.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 847C1BE8164E19510023A249 /* bbarnard_notesdb.sqlite */; };
+		84C4E54A165364D600729F5E /* bbarnard_NotesService.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C4E549165364D600729F5E /* bbarnard_NotesService.m */; };
 		84D55566164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D55564164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.m */; };
 		84D55567164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D55565164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.xib */; };
 /* End PBXBuildFile section */
@@ -96,6 +97,8 @@
 		84629AFE1645F47200B626D5 /* bbarnard_SyncPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bbarnard_SyncPageViewController.xib; sourceTree = "<group>"; };
 		847C1BE4164E16B60023A249 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		847C1BE8164E19510023A249 /* bbarnard_notesdb.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = bbarnard_notesdb.sqlite; sourceTree = "<group>"; };
+		84C4E548165364D600729F5E /* bbarnard_NotesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_NotesService.h; sourceTree = "<group>"; };
+		84C4E549165364D600729F5E /* bbarnard_NotesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_NotesService.m; sourceTree = "<group>"; };
 		84D55563164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bbarnard_NewNoteViewController.h; sourceTree = "<group>"; };
 		84D55564164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bbarnard_NewNoteViewController.m; sourceTree = "<group>"; };
 		84D55565164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bbarnard_NewNoteViewController.xib; sourceTree = "<group>"; };
@@ -208,6 +211,8 @@
 				840C2E0016422A0D00E4D056 /* bbarnard_NoteData.m */,
 				840C2E0216422A2400E4D056 /* bbarnard_NoteCollecton.h */,
 				840C2E0316422A2400E4D056 /* bbarnard_NoteCollecton.m */,
+				84C4E548165364D600729F5E /* bbarnard_NotesService.h */,
+				84C4E549165364D600729F5E /* bbarnard_NotesService.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -341,6 +346,7 @@
 				842D65AE16474A220089B6FD /* bbarnard_NotesNavViewController.m in Sources */,
 				842D65BC164751A00089B6FD /* bbarnard_NotesTableViewController.m in Sources */,
 				84D55566164C9D6A00DDFC8C /* bbarnard_NewNoteViewController.m in Sources */,
+				84C4E54A165364D600729F5E /* bbarnard_NotesService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,7 +386,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -401,7 +407,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
