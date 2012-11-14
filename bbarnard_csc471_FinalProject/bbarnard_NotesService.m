@@ -13,11 +13,13 @@
 
 @implementation bbarnard_NotesService
 @synthesize responseData;
+@synthesize requestType;
 
 
 - (void)fetchNotes {
 
     self.responseData = [NSMutableData data];
+    self.requestType = @"GETNOTES";
     
     NSURL *briteredNotes = [NSURL URLWithString:@"http://britrednotes.azurewebsites.net/api/notes?pageIndex=1&pageSize=10"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:briteredNotes];
@@ -27,6 +29,70 @@
     
     connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 }
+
+- (void)addNoteRemoteCollection:(bbarnard_NoteData *)noteObject {
+    
+    NSLog(@"NoteService Add Note Called");
+    
+    self.responseData = [NSMutableData data];
+    self.requestType = @"ADDNOTE";
+    
+    NSString *unencodedRequestString = [NSString stringWithFormat: @"Title=%@&Content=%@", [noteObject title], [noteObject content]];
+    NSString * encodedString = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
+                                                                                   NULL,
+                                                                                   (CFStringRef)unencodedRequestString,
+                                                                                   NULL,
+                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                   kCFStringEncodingUTF8 );
+    
+    //NSString *requestString = encodedString; //TESTING
+    NSString *requestString = unencodedRequestString;
+    NSURL *briteredNotes = [NSURL URLWithString:@"http://britrednotes.azurewebsites.net/api/notes"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:briteredNotes];
+    NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length ]];
+    
+    /* customize request */
+    [request addValue:@"0ca532cc-1918-475e-ae30-a4a3ac25625c" forHTTPHeaderField:@"AuthorId"];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+    [request setHTTPBody: requestData ];
+    
+    connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+}
+
+
+- (void)deleteNoteRemoteCollection:(bbarnard_NoteData *)noteObject {
+    
+    NSLog(@"NoteService Delete Note Called");
+    
+    self.responseData = [NSMutableData data];
+    self.requestType = @"DELETENOTE";
+    
+    NSURL *briteredNotes = [NSURL URLWithString:@"http://britrednotes.azurewebsites.net/api/notes?pageIndex=1&pageSize=10"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:briteredNotes];
+    
+    /* add custom header */
+    [request addValue:@"0ca532cc-1918-475e-ae30-a4a3ac25625c" forHTTPHeaderField:@"AuthorId"];
+    
+    connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+}
+
+- (void)updateNoteRemoteCollection:(bbarnard_NoteData *)noteObject {
+    
+    NSLog(@"NoteService Update Note Called");
+    
+    self.responseData = [NSMutableData data];
+    self.requestType = @"UPDATENOTE";
+    
+    NSURL *briteredNotes = [NSURL URLWithString:@"http://britrednotes.azurewebsites.net/api/notes?pageIndex=1&pageSize=10"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:briteredNotes];
+    
+    /* add custom header */
+    [request addValue:@"0ca532cc-1918-475e-ae30-a4a3ac25625c" forHTTPHeaderField:@"AuthorId"];
+    
+    connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+}
+
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     NSLog(@"didReceiveResponse");
@@ -53,8 +119,6 @@
     NSLog(@"Succeeded! Received %d bytes of data", [responseData length]);
     NSString *t = [[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding];
     NSLog(@"jsonCheck: %@", t);
-
-    /* get ref to app delegate */
     
     // serialize
     NSError *myError = nil;
@@ -65,23 +129,38 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sync Error" message:@"Error retreiving notes from web service" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
         [alert show];
     } else {
-        for(NSDictionary *item in jsonArray) {
-                NSLog(@"Title: %@ ", [item objectForKey:@"Title"]);
-                NSLog(@"Content: %@ ", [item objectForKey:@"Content"]);
-                NSLog(@"SysId: %@", [item objectForKey:@"SysId"]);
-                NSLog(@"AuthorID: %@", [item objectForKey:@"AuthorId"]);
-            
-            [self createAndAddLocalNote:item];
-            
-            
-            
+        
+        /* maybe this should be a switch ... ? :), next refactor. short on time now... */
+        
+        if ([self.requestType isEqualToString:@"GETNOTES"]) {
+        
+            for(NSDictionary *item in jsonArray) {
+                //NSLog(@"Title: %@ ", [item objectForKey:@"Title"]);
+                //NSLog(@"Content: %@ ", [item objectForKey:@"Content"]);
+                //NSLog(@"SysId: %@", [item objectForKey:@"SysId"]);
+                //NSLog(@"AuthorID: %@", [item objectForKey:@"AuthorId"]);
+                
+                [self createAndAddLocalNote:item];
                 noteCount++;
+            }
+            
+            NSString *result = [NSString stringWithFormat:@" %d notes retreived from web service", noteCount];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sync Complete" message:result delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
+            [alert show];
         }
         
-        NSString *result = [NSString stringWithFormat:@" %d notes retreived from web service", noteCount];
+        if ([self.requestType isEqualToString:@"ADDNOTE"]) {
+            NSLog(@"after connection ADDNOTE");
+        }
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sync Complete" message:result delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
-        [alert show];
+        if ([self.requestType isEqualToString:@"DELETENOTE"]) {
+            NSLog(@"after connection DELETENOTE");
+        }
+        
+        if ([self.requestType isEqualToString:@"UPDATENOTE"]) {
+            NSLog(@"after connection DELETENOTE");
+        }
     }
 }
 
@@ -102,22 +181,6 @@
     
     //add to database
     [bbarnard_NoteCollecton createNote:noteObj];
-}
-
-- (void)addNoteRemoteCollection:(bbarnard_NoteData *)noteObject {
-    
-    NSLog(@"NoteService Add Note Called");
-}
-
-
-- (void)deleteNoteRemoteCollection:(bbarnard_NoteData *)noteObject {
-    
-    NSLog(@"NoteService Delete Note Called");
-}
-
-- (void)updateNoteRemoteCollection:(bbarnard_NoteData *)noteObject {
-    
-    NSLog(@"NoteService Update Note Called");
 }
 
 @end		

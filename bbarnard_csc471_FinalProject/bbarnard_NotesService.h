@@ -14,6 +14,7 @@
 }
 
 @property (nonatomic, strong) NSMutableData *responseData;
+@property (nonatomic, strong) NSString *requestType;
 
 - (void)fetchNotes;
 - (void)addNoteRemoteCollection:(bbarnard_NoteData *)noteObject;
