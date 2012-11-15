@@ -38,13 +38,7 @@
     self.requestType = @"ADDNOTE";
     
     NSString *unencodedRequestString = [NSString stringWithFormat: @"Title=%@&Content=%@", [noteObject title], [noteObject content]];
-    NSString * encodedString = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
-                                                                                   NULL,
-                                                                                   (CFStringRef)unencodedRequestString,
-                                                                                   NULL,
-                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                                                   kCFStringEncodingUTF8 );
-    
+
     //NSString *requestString = encodedString; //TESTING
     NSString *requestString = unencodedRequestString;
     NSURL *briteredNotes = [NSURL URLWithString:@"http://britrednotes.azurewebsites.net/api/notes"];

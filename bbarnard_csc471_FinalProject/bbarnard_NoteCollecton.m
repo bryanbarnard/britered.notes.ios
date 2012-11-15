@@ -7,7 +7,6 @@
 //
 
 #import "bbarnard_NoteCollecton.h"
-#import "bbarnard_NoteData.h"
 #import "bbarnardAppDelegate.h"
 
 static sqlite3 *db = nil;
@@ -85,8 +84,8 @@ static sqlite3 *db = nil;
     if(!success)
         {
             NSLog(@"Cannot locate database file '%@', ", dbPath);
-            return NO;
             sqlite3_close(db);
+            return NO;
         }
     
     if(!(sqlite3_open([dbPath UTF8String], &db) == SQLITE_OK))
@@ -161,7 +160,7 @@ static sqlite3 *db = nil;
             NSAssert1(0, @"Error while inserting data. '%s'", sqlite3_errmsg(db));
             insertSuccess = NO;
         } else {
-            [note setNoteId: sqlite3_last_insert_rowid(db)];
+            [note setNoteId:(NSInteger) sqlite3_last_insert_rowid(db)];
             insertSuccess = YES;
             NSLog(@"New Note Successfully Created. ID: %d", note.noteId);
         }

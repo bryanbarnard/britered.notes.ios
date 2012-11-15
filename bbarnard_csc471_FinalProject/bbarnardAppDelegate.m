@@ -17,7 +17,7 @@
 @synthesize window = _window;
 @synthesize rootController;
 @synthesize noteArray;
-@synthesize syncAdd, syncDelete, syncNoteOverwriteLocal;
+@synthesize syncAdd, syncDelete, syncNoteOverwriteLocal, syncUpdate;
 @synthesize noteService;
 
 #pragma mark -
@@ -121,6 +121,11 @@
 
     //Update entry in database
     [bbarnard_NoteCollecton updateNote:noteObj];
+    
+    //Update to webService
+    if (self.syncUpdate) {
+        [self.noteService updateNoteRemoteCollection:noteObj];
+    }
 
     //Update entry in array
     [noteArray replaceObjectAtIndex:[noteObj.altId integerValue] withObject:noteObj];
@@ -128,6 +133,12 @@
 
 - (void) fetchNotesFromService
 {
+
+    //clear local first
+    if (self.syncNoteOverwriteLocal) {
+        [self clearLocalCache];
+    }
+    
     [self.noteService fetchNotes];
 }
 

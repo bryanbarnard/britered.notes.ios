@@ -106,7 +106,7 @@
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     }
 
-    NSUInteger row = [indexPath row];
+    NSUInteger row = (NSUInteger) [indexPath row];
     bbarnard_NoteData *note = [appDelegate.noteArray objectAtIndex:row];
     
     cell.textLabel.text = note.title;
@@ -129,7 +129,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         /* remove selected row from array and db */
-        NSUInteger row = [indexPath row];
+        NSUInteger row = (NSUInteger) [indexPath row];
         bbarnard_NoteData *note = [appDelegate.noteArray objectAtIndex:row];
         [appDelegate removeNote:note];
 
@@ -142,7 +142,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     /* get selected row */
-    NSUInteger row = [indexPath row];
+    NSUInteger row = (NSUInteger) [indexPath row];
     
     /* get value at row and create object */
     bbarnard_NoteData *note = [appDelegate.noteArray objectAtIndex:row];
@@ -154,7 +154,7 @@
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     /* get selected row */
-    NSUInteger row = [indexPath row];
+    NSUInteger row = (NSUInteger) [indexPath row];
 
     /* get value at row and create object */
     bbarnard_NoteData *note = [appDelegate.noteArray objectAtIndex:row];

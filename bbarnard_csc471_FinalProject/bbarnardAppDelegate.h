@@ -14,10 +14,11 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) IBOutlet UITabBarController *rootController;
 @property (strong, nonatomic) NSMutableArray *noteArray;
+@property (strong, nonatomic) bbarnard_NotesService *noteService;
 @property BOOL syncAdd;
 @property BOOL syncDelete;
+@property BOOL syncUpdate;
 @property BOOL syncNoteOverwriteLocal;
-@property (strong, nonatomic) bbarnard_NotesService *noteService;
 
 
 - (void) copyDatabaseIfNeeded;

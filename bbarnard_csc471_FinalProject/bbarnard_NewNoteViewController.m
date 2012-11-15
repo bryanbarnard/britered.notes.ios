@@ -8,7 +8,6 @@
 
 #import "bbarnard_NewNoteViewController.h"
 #import "bbarnard_NoteData.h"
-#import "bbarnard_NoteCollecton.h"
 #import "bbarnardAppDelegate.h"
 
 @interface bbarnard_NewNoteViewController ()

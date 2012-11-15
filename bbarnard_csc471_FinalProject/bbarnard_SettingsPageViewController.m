@@ -14,7 +14,7 @@
 @end
 
 @implementation bbarnard_SettingsPageViewController
-@synthesize syncNoteAddOutlet, syncNoteDeleteOutlet, syncNoteOverwriteLocalOutlet, urlTextFieldOutlet;
+@synthesize syncNoteAddOutlet, syncNoteDeleteOutlet, syncNoteOverwriteLocalOutlet, urlTextFieldOutlet, syncNoteUpdateOutlet;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +30,7 @@
     [super viewDidLoad];
     [syncNoteAddOutlet setOn:NO];
     [syncNoteDeleteOutlet setOn:NO];
+    [syncNoteUpdateOutlet setOn:NO];
     [syncNoteOverwriteLocalOutlet setOn:NO];
 }
 
@@ -59,6 +60,13 @@
 
 }
 
+- (IBAction)switched_SyncNoteUpdate:(UISwitch *)sender {
+    bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate setSyncUpdate:sender.on];
+}
+
+
 - (IBAction)textFieldDoneEditing:(id)sender {
     [sender resignFirstResponder];
 }
@@ -72,6 +80,7 @@
     [self setSyncNoteDeleteOutlet:nil];
     [self setSyncNoteOverwriteLocalOutlet:nil];
     [self setUrlTextFieldOutlet:nil];
+    [self setSyncNoteUpdateOutlet:nil];
     [super viewDidUnload];
 }
 @end
