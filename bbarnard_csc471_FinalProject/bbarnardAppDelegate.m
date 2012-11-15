@@ -37,12 +37,14 @@
     
     /* load notes array from db */
     [bbarnard_NoteCollecton getNotesDB:[self getDBPath]];
-
+    
     /* set default settings */
-    self.syncAdd = NO;
-    self.syncDelete = NO;
-    self.syncNoteOverwriteLocal = NO;
-        
+    self.syncAdd = YES;
+    self.syncDelete = YES;
+    self.syncNoteOverwriteLocal = YES;
+    self.syncUpdate = YES;
+
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     [[NSBundle mainBundle] loadNibNamed:@"bbarnard_TabBarController" owner:self options:nil]; [self.window addSubview:rootController.view];
@@ -131,7 +133,7 @@
     }
 
     //Update entry in array
-    [noteArray replaceObjectAtIndex:[noteObj.altId integerValue] withObject:noteObj];
+    [noteArray replaceObjectAtIndex:[noteObj.idxId integerValue] withObject:noteObj];
 }
 
 /**

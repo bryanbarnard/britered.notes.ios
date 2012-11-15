@@ -20,4 +20,5 @@
 @synthesize noteId;
 @synthesize isDirty;
 @synthesize altId;
+@synthesize idxId;
 @end

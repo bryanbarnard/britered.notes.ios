@@ -86,7 +86,7 @@ static int httpResponseCode;
     self.responseData = [NSMutableData data];
     self.requestType = @"UPDATENOTE";
 
-    NSString *unencodedRequestString = [NSString stringWithFormat: @"Title=%@&Content=%@", [noteObject title], [noteObject content]];
+    NSString *unencodedRequestString = [NSString stringWithFormat: @"Title=%@&Content=%@&SysId=%@", [noteObject title], [noteObject content], [noteObject altId]];
     NSString *requestString = unencodedRequestString;
     NSURL *briteredNotes = [NSURL URLWithString:@"http://britrednotes.azurewebsites.net/api/notes"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:briteredNotes];

@@ -205,11 +205,11 @@ static sqlite3 *db = nil;
         [note setCreated_on: nowEpochString];
     }
 
-    if ([note.author isEqualToString:@""]) {
+    if (note.author == nil || [note.author isEqualToString:@""]) {
         [note setAuthor: @"1"];
     }
 
-    if ([note.altId isEqualToString:@""]) {
+    if ( note.altId == nil || [note.altId isEqualToString:@""]) {
         [note setAltId:@"1"];
     }
 
@@ -368,7 +368,6 @@ static sqlite3 *db = nil;
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Local Note Cache Cleared" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
             [alert show];
-
         }
     }
     @catch (NSException *exception) {

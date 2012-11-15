@@ -28,10 +28,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [syncNoteAddOutlet setOn:NO];
-    [syncNoteDeleteOutlet setOn:NO];
-    [syncNoteUpdateOutlet setOn:NO];
-    [syncNoteOverwriteLocalOutlet setOn:NO];
+    [syncNoteAddOutlet setOn:YES];
+    [syncNoteDeleteOutlet setOn:YES];
+    [syncNoteUpdateOutlet setOn:YES];
+    [syncNoteOverwriteLocalOutlet setOn:YES];
 }
 
 - (void)didReceiveMemoryWarning

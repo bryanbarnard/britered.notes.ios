@@ -1,0 +1,16 @@
+README
+
+CSC471 Autumn 2012 Section 701 Final Project
+BriteRed Notes App, SQLite Local Note Cache, Remote Note Storate at http://notes.britered.org
+Bryan Barnard
+bmbarnard@gmail.com
+
+Build with Xcode 4.5 targetting iOS 5.1 on Mac Mountain Lion 64 bit
+
+
+The following sites/articles were referred to during the building of this application as tutorials and guidance through some of the questions I had about 
+using both SQLite and NSURLRequest
+- http://klanguedoc.hubpages.com/hub/IOS-5-How-To-Display-SQLite-Data-in-a-UITableView#
+- http://www.iphonesdkarticles.com/2009/01/uitableview-loading-detail-view.html
+- Book: Beginning iOS Development 5 - Exploring The iOS SDK
+- Book: iOS Programming: The Big Nerd Ranch Guide 

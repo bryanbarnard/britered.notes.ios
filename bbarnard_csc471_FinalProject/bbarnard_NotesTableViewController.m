@@ -146,7 +146,7 @@
     
     /* get value at row and create object */
     bbarnard_NoteData *note = [appDelegate.noteArray objectAtIndex:row];
-    [note setAltId:[NSString stringWithFormat:@"%d", row]];
+    [note setIdxId:[NSString stringWithFormat:@"%d", row]];
     [self.detailController setTitle: note.title];
     self.detailController.noteData = note;
     [self.navigationController pushViewController:self.detailController animated:YES];
@@ -158,7 +158,7 @@
 
     /* get value at row and create object */
     bbarnard_NoteData *note = [appDelegate.noteArray objectAtIndex:row];
-    [note setAltId:[NSString stringWithFormat:@"%d", row]];
+    [note setIdxId:[NSString stringWithFormat:@"%d", row]];
     [self.detailController setTitle: note.title];
     self.detailController.noteData = note;
     [self.navigationController pushViewController:self.detailController animated:YES];
