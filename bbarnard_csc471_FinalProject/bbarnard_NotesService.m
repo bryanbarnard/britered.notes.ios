@@ -15,6 +15,7 @@
 @synthesize responseData;
 @synthesize requestType;
 
+static int httpResponseCode;
 
 - (void)fetchNotes {
 
@@ -84,23 +85,28 @@
     
     self.responseData = [NSMutableData data];
     self.requestType = @"UPDATENOTE";
-    
-    NSURL *briteredNotes = [NSURL URLWithString:@"http://britrednotes.azurewebsites.net/api/notes?pageIndex=1&pageSize=10"];
+
+    NSString *unencodedRequestString = [NSString stringWithFormat: @"Title=%@&Content=%@", [noteObject title], [noteObject content]];
+    NSString *requestString = unencodedRequestString;
+    NSURL *briteredNotes = [NSURL URLWithString:@"http://britrednotes.azurewebsites.net/api/notes"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:briteredNotes];
-    
-    /* add custom header */
+    NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length ]];
+
+    /* customize request */
     [request addValue:@"0ca532cc-1918-475e-ae30-a4a3ac25625c" forHTTPHeaderField:@"AuthorId"];
-    
+    [request setHTTPMethod:@"PUT"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+    [request setHTTPBody: requestData ];
+
     connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 }
 
-
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    NSLog(@"didReceiveResponse");
-    
+    //NSLog(@"didReceiveResponse");
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-    int code = [httpResponse statusCode];
-    NSLog(@"HTTP Response Status Code: %d", code);
+    httpResponseCode = [httpResponse statusCode];
+
+    NSLog(@"HTTP Response Status Code: %d", httpResponseCode);
     [self.responseData setLength:0];
 }
 
@@ -109,32 +115,43 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    NSLog(@"didFailWithError");
-    //NSLog([NSString stringWithFormat:@"Connection failed: %@", [error description]]);
+    NSLog(@"%@", [NSString stringWithFormat:@"Connection failed: %@", [error description]]);
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sync Error" message:@"Unable to connect to web service." delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
+    [alert show];
 }
 
-/* this is the meat */
+/* if success process results */
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     NSInteger noteCount = 0;
     NSLog(@"connectionDidFinishLoading");
     NSLog(@"Succeeded! Received %d bytes of data", [responseData length]);
     NSString *t = [[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding];
-    NSLog(@"jsonCheck: %@", t);
-    
+
+    //nothing to do with results if this is a delete, just expect 204 response
+    if  ([self.requestType isEqualToString:@"DELETENOTE"]) {
+        assert(httpResponseCode == 204);
+        return;
+    }
+
+
     // serialize
     NSError *myError = nil;
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&myError];
-    
-    if (![self.requestType isEqualToString:@"DELETENOTE"] && !jsonArray) {
+
+    if (!jsonArray) {
+        NSLog(@"jsonCheck: %@", t);
         NSLog(@"error parsing json response");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sync Error" message:@"Error retreiving notes from web service" delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
         [alert show];
     } else {
         
         /* maybe this should be a switch ... ? :), next refactor. short on time now... */
-        
         if ([self.requestType isEqualToString:@"GETNOTES"]) {
         
+            assert(httpResponseCode == 200);
+            
+            
             for(NSDictionary *item in jsonArray) {
                 //NSLog(@"Title: %@ ", [item objectForKey:@"Title"]);
                 //NSLog(@"Content: %@ ", [item objectForKey:@"Content"]);
@@ -146,21 +163,16 @@
             }
             
             NSString *result = [NSString stringWithFormat:@" %d notes retreived from web service", noteCount];
-            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sync Complete" message:result delegate:self cancelButtonTitle:@"Return" otherButtonTitles:nil, nil];
             [alert show];
         }
         
         if ([self.requestType isEqualToString:@"ADDNOTE"]) {
-            NSLog(@"after connection ADDNOTE");
+            assert(httpResponseCode == 201);
         }
-        
-        if ([self.requestType isEqualToString:@"DELETENOTE"]) {
-            NSLog(@"after connection DELETENOTE");
-        }
-        
+
         if ([self.requestType isEqualToString:@"UPDATENOTE"]) {
-            NSLog(@"after connection DELETENOTE");
+            assert(httpResponseCode == 200);
         }
     }
 }
@@ -173,7 +185,7 @@
     [noteObj setAltId: [noteDTO objectForKey:@"SysId"]];
     [noteObj setAuthor: [noteDTO objectForKey:@"AuthorId"]];
     
-    NSLog(@"Note Object Created from noteDTO title: %@", [noteObj title]);
+    //NSLog(@"Note Object Created from noteDTO title: %@", [noteObj title]);
     
     bbarnardAppDelegate *appDelegate = (bbarnardAppDelegate *)[[UIApplication sharedApplication] delegate];
 

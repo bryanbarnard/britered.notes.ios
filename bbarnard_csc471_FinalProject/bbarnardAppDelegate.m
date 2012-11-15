@@ -101,8 +101,8 @@
 }
 
 /**
- * this method will add to both db, collection and webservice and is only to be called from the GUI
- */
+* add note to and webservice if sync enabled
+*/
 - (void) addNote:(bbarnard_NoteData *)noteObj {
 
     //Add it to the database.
@@ -117,6 +117,9 @@
     [noteArray addObject:noteObj];
 }
 
+/**
+* update note on both db and webservice if sync enabled
+*/
 - (void) updateNote:(bbarnard_NoteData *)noteObj {
 
     //Update entry in database
@@ -131,9 +134,11 @@
     [noteArray replaceObjectAtIndex:[noteObj.altId integerValue] withObject:noteObj];
 }
 
+/**
+* get notes from webservice
+*/
 - (void) fetchNotesFromService
 {
-
     //clear local first
     if (self.syncNoteOverwriteLocal) {
         [self clearLocalCache];
@@ -142,6 +147,9 @@
     [self.noteService fetchNotes];
 }
 
+/**
+* clear local cache of notes from sqllite file
+*/
 - (void) clearLocalCache
 {
     //clear all notes from db
