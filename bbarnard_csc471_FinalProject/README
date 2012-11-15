@@ -22,3 +22,14 @@ WebService Web Interface
 http://notes.britered.org
 Username: a
 Password: a
+
+SQLite DB Name: bbarnard_notesdb.sqlite
+Schema:
+COLUMNNAME TYPE    NULL    CONSTRAINT
+noteid     INTEGER NOTNULL PK
+created_on VARCHAR NOTNULL
+udpated_on VARCHAR
+content    TEXT
+title      VARCHAR NOTNULL
+altId      VARCHAR
+author     VARCHAR NOTNULL
